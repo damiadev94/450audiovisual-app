@@ -1,0 +1,27 @@
+name: Supabase Backup Diario
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Se ejecuta todos los días a la medianoche (UTC)
+  workflow_dispatch: # Permite ejecutarlo manualmente desde GitHub
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Permiso para guardar el backup en el repo
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar Postgres Client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: Realizar Dump de Base de Datos
+        run: |
+          pg_dump "${{ secrets.SUPABASE_DB_URL }}" > backup_$(date +%Y-%m-%d).sql
+
+      - name: Subir Backup al Repositorio
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Backup automático de base de datos - $(date +%Y-%m-%d)"
+          file_pattern: "*.sql"
