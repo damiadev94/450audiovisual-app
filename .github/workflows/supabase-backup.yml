@@ -18,7 +18,8 @@ jobs:
 
       - name: Realizar Dump de Base de Datos
         run: |
-          pg_dump "${{ secrets.SUPABASE_DB_URL }}" > backup_$(date +%Y-%m-%d).sql
+          pg_dump "${{ secrets.SUPABASE_DB_CONNECTION_STRING }}" > backup_$(date +%Y-%m-%d).sql
+
 
       - name: Subir Backup al Repositorio
         uses: stefanzweifel/git-auto-commit-action@v5
