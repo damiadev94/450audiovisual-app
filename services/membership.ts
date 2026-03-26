@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { Database } from '@/types/supabase/supabase'
 
 /**
  * SERVICIO DE MEMBRESÍA
@@ -42,12 +43,11 @@ export async function extendMembership(userId: string) {
   const newExpiration = new Date(currentExpiration)
   newExpiration.setDate(newExpiration.getDate() + DAYS_PER_PAYMENT)
 
-  // 3. Actualizar en la base de datos
-  const { error: updateError } = await supabase
-    .from('profiles')
+    // 3. Actualizar en la base de datos
+  const { error: updateError } = await (supabase.from('profiles') as any)
     .update({ 
       membership_expires_at: newExpiration.toISOString() 
-    })
+    } as Database['public']['Tables']['profiles']['Update'])
     .eq('id', userId)
 
   if (updateError) {
