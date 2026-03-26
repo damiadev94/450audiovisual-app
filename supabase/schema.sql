@@ -7,6 +7,7 @@ CREATE TABLE public.profiles (
     id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
     email TEXT UNIQUE NOT NULL,
     full_name TEXT,
+    is_admin BOOLEAN DEFAULT false, -- Identifica si el usuario es administrador/creador.
     membership_expires_at TIMESTAMP WITH TIME ZONE, -- Fecha hasta la cual el usuario tiene acceso premium.
     referred_by UUID REFERENCES public.profiles(id), -- Almacena quién invitó a este usuario.
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
@@ -69,6 +70,41 @@ CREATE TABLE public.announcements (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
+-- 7. Tabla de Cursos: Organización del contenido académico.
+CREATE TABLE public.courses (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    title TEXT NOT NULL,
+    description TEXT,
+    thumbnail_url TEXT,
+    order_index INTEGER DEFAULT 0,
+    is_published BOOLEAN DEFAULT false,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 8. Tabla de Lecciones: El contenido audiovisual individual dentro de los cursos.
+CREATE TABLE public.lessons (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    course_id UUID REFERENCES public.courses(id) ON DELETE CASCADE NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT,
+    video_url TEXT NOT NULL, -- URL de Vimeo o Bunny Stream.
+    duration INTEGER, -- Duración en segundos.
+    order_index INTEGER DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 9. Tabla de Progreso: Seguimiento del consumo de contenido por parte de los miembros.
+CREATE TABLE public.user_progress (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
+    lesson_id UUID REFERENCES public.lessons(id) ON DELETE CASCADE NOT NULL,
+    is_completed BOOLEAN DEFAULT false,
+    last_watched_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    UNIQUE(user_id, lesson_id) -- Un registro de progreso por usuario/lección.
+);
+
 -- SEGURIDAD: Row Level Security (RLS)
 -- Estas sentencias aseguran que los usuarios NO puedan ver datos de otros usuarios a menos que se defina una política específica.
 
@@ -78,10 +114,14 @@ ALTER TABLE public.raffles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.tickets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.referrals ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.announcements ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.courses ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.lessons ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.user_progress ENABLE ROW LEVEL SECURITY;
 
 -- POLÍTICAS DE ACCESO
 
 -- Perfiles: El usuario solo puede ver y editar sus propios datos de perfil.
+-- Los administradores (is_admin = true) pueden ver todos los perfiles en el futuro (opcional).
 CREATE POLICY "Users can view their own profile" ON public.profiles
     FOR SELECT USING (auth.uid() = id);
 
@@ -91,6 +131,39 @@ CREATE POLICY "Users can update their own profile" ON public.profiles
 -- Pagos: El usuario solo puede ver su propio historial de pagos.
 CREATE POLICY "Users can view their own payments" ON public.payments
     FOR SELECT USING (auth.uid() = user_id);
+
+-- Cursos y Lecciones: 
+-- 1. Usuarios con membresía activa pueden ver contenido publicado.
+-- 2. Administradores pueden ver todo. (Se asume que el sistema de pago controla la fecha en 'profiles')
+CREATE POLICY "Members can view published courses" ON public.courses
+    FOR SELECT USING (
+        is_published = true AND (
+            EXISTS (
+                SELECT 1 FROM public.profiles 
+                WHERE id = auth.uid() AND (membership_expires_at > now() OR is_admin = true)
+            )
+        )
+    );
+
+CREATE POLICY "Members can view lessons of accessible courses" ON public.lessons
+    FOR SELECT USING (
+        EXISTS (
+            SELECT 1 FROM public.courses 
+            WHERE id = course_id AND is_published = true AND (
+                EXISTS (
+                    SELECT 1 FROM public.profiles 
+                    WHERE id = auth.uid() AND (membership_expires_at > now() OR is_admin = true)
+                )
+            )
+        )
+    );
+
+-- Progreso: Usuarios solo pueden ver y editar su propio progreso.
+CREATE POLICY "Users can view their own progress" ON public.user_progress
+    FOR SELECT USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can update their own progress" ON public.user_progress
+    FOR ALL USING (auth.uid() = user_id);
 
 -- Sorteos: Todos los usuarios con acceso pueden ver los sorteos activos.
 CREATE POLICY "Anyone can view active raffles" ON public.raffles
@@ -125,6 +198,14 @@ CREATE TRIGGER on_profiles_updated
 
 CREATE TRIGGER on_payments_updated
     BEFORE UPDATE ON public.payments
+    FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
+
+CREATE TRIGGER on_courses_updated
+    BEFORE UPDATE ON public.courses
+    FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
+
+CREATE TRIGGER on_lessons_updated
+    BEFORE UPDATE ON public.lessons
     FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
 
 -- Función para crear automáticamente un perfil en 'public.profiles' cuando un usuario se registra en la plataforma.
