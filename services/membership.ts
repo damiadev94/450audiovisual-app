@@ -1,6 +1,9 @@
 import { createClient } from '@/lib/supabase/server'
 import { Database } from '@/types/supabase/supabase'
 
+type ProfileRow =
+  Database['public']['Tables']['profiles']['Row']
+
 /**
  * SERVICIO DE MEMBRESÍA
  * 
@@ -22,7 +25,7 @@ export async function extendMembership(userId: string) {
     .from('profiles')
     .select('membership_expires_at')
     .eq('id', userId)
-    .single()
+    .single<Pick<ProfileRow, 'membership_expires_at'>>()
 
   if (fetchError || !profile) {
     console.error('Error al obtener el perfil para extender membresía:', fetchError)
@@ -30,8 +33,8 @@ export async function extendMembership(userId: string) {
   }
 
   const now = new Date()
-  let currentExpiration = profile.membership_expires_at 
-    ? new Date(profile.membership_expires_at) 
+  let currentExpiration = profile.membership_expires_at
+    ? new Date(profile.membership_expires_at)
     : now
 
   // Si ya expiró, empezamos a contar desde hoy
@@ -43,10 +46,10 @@ export async function extendMembership(userId: string) {
   const newExpiration = new Date(currentExpiration)
   newExpiration.setDate(newExpiration.getDate() + DAYS_PER_PAYMENT)
 
-    // 3. Actualizar en la base de datos
+  // 3. Actualizar en la base de datos
   const { error: updateError } = await (supabase.from('profiles') as any)
-    .update({ 
-      membership_expires_at: newExpiration.toISOString() 
+    .update({
+      membership_expires_at: newExpiration.toISOString()
     } as Database['public']['Tables']['profiles']['Update'])
     .eq('id', userId)
 

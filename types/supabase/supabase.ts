@@ -52,7 +52,8 @@ export interface Database {
           referred_by?: string | null
           created_at?: string
           updated_at?: string
-        }
+        },
+        Relationships: []
       }
       /**
        * Pagos: Registro de transacciones recibidas (ej. MercadoPago).
@@ -91,7 +92,8 @@ export interface Database {
           payment_method?: string | null
           created_at?: string
           updated_at?: string
-        }
+        },
+        Relationships: []
       }
       /**
        * Cursos: Agrupadores de contenido audiovisual (lecciones).
@@ -126,7 +128,8 @@ export interface Database {
           is_published?: boolean
           created_at?: string
           updated_at?: string
-        }
+        },
+        Relationships: []
       }
       /**
        * Lecciones: Contenido de video específico dentro de un curso.
@@ -164,7 +167,8 @@ export interface Database {
           order_index?: number
           created_at?: string
           updated_at?: string
-        }
+        },
+        Relationships: []
       }
       /**
        * Progreso: Seguimiento de qué lecciones ha visto cada usuario.
@@ -190,7 +194,8 @@ export interface Database {
           lesson_id?: string
           is_completed?: boolean
           last_watched_at?: string
-        }
+        },
+        Relationships: []
       }
       /**
        * Sorteos: Eventos de premios gestionados por la plataforma.
@@ -219,7 +224,8 @@ export interface Database {
           draw_date?: string | null
           status?: string
           created_at?: string
-        }
+        },
+        Relationships: []
       }
       /**
        * Tickets: Entradas de usuarios para participar en sorteos.
@@ -248,7 +254,8 @@ export interface Database {
           payment_id?: string | null
           ticket_number?: string
           created_at?: string
-        }
+        },
+        Relationships: []
       }
       /**
        * Referidos: Seguimiento de invitaciones entre usuarios.
@@ -274,7 +281,8 @@ export interface Database {
           referred_id?: string
           status?: string
           created_at?: string
-        }
+        },
+        Relationships: []
       }
       /**
        * Anuncios: Comunicaciones globales dentro del Dashboard.
@@ -306,7 +314,8 @@ export interface Database {
           is_active?: boolean
           expires_at?: string | null
           created_at?: string
-        }
+        },
+        Relationships: []
       }
     }
     Views: {
@@ -316,6 +325,9 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
+      [_ in never]: never
+    },
+    CompositeTypes: { // Añade esta sección si no existe
       [_ in never]: never
     }
   }

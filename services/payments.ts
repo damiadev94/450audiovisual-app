@@ -1,5 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { extendMembership } from './membership'
+import type { SupabaseClient } from '@supabase/supabase-js'
+import type { Database } from '@/types/supabase/supabase'
 
 /**
  * SERVICIO DE PAGOS
@@ -22,7 +24,7 @@ interface PaymentData {
  * 3. Genera un ticket para el sorteo activo.
  */
 export async function processApprovedPayment(data: PaymentData) {
-  const supabase = await createClient()
+  const supabase: SupabaseClient<Database> = await createClient()
 
   // 1. Registrar pago (idempotencia manejada por el UNIQUE en external_id en la DB)
   const { data: payment, error: paymentError } = await supabase
@@ -61,7 +63,7 @@ export async function processApprovedPayment(data: PaymentData) {
 
   if (raffle) {
     const ticketNumber = `B450-${Math.random().toString(36).substring(2, 8).toUpperCase()}`
-    
+
     await supabase.from('tickets').insert({
       user_id: data.userId,
       raffle_id: raffle.id,
