@@ -2,6 +2,8 @@ import { createClient } from '@/lib/supabase/server'
 import { extendMembership } from './membership'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/types/supabase/supabase'
+import client from '@/lib/mercadopago/mercadopago';
+import { Preference, PreApproval } from 'mercadopago';
 
 /**
  * SERVICIO DE PAGOS
@@ -73,4 +75,44 @@ export async function processApprovedPayment(data: PaymentData) {
   }
 
   return payment
+}
+
+// 4. Preferencia de Pago
+export async function createPaymentPreference(items: any[]) {
+  const preference = new Preference(client);
+  const response = await preference.create({
+    body: {
+      items,
+      back_urls: {
+        success: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/success`,
+        failure: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/failure`,
+        pending: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/pending`
+      }
+    }
+  });
+
+  return response.id;
+}
+
+// 5. Suscripción Mensual (Preapproval)
+export async function createSubscription(userId: string, userEmail: string) {
+  const preApproval = new PreApproval(client);
+  const response = await preApproval.create({
+    body: {
+      reason: "Bunker 450 Pro - Suscripción Mensual",
+      auto_recurring: {
+        frequency: 1,
+        frequency_type: "months",
+        transaction_amount: 9999,
+        currency_id: "ARS"
+      },
+      back_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/success`,
+      payer_email: userEmail,
+      external_reference: userId,
+      status: "pending"
+    }
+  });
+
+  // init_point is the URL where the user should be redirected to pay
+  return response.init_point;
 }

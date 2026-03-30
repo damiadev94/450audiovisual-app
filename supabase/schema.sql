@@ -78,6 +78,7 @@ CREATE TABLE public.courses (
     thumbnail_url TEXT,
     order_index INTEGER DEFAULT 0,
     is_published BOOLEAN DEFAULT false,
+    is_free BOOLEAN DEFAULT false,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
@@ -91,6 +92,7 @@ CREATE TABLE public.lessons (
     video_url TEXT NOT NULL, -- URL de Vimeo o Bunny Stream.
     duration INTEGER, -- Duración en segundos.
     order_index INTEGER DEFAULT 0,
+    is_free BOOLEAN DEFAULT false,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
@@ -133,11 +135,12 @@ CREATE POLICY "Users can view their own payments" ON public.payments
     FOR SELECT USING (auth.uid() = user_id);
 
 -- Cursos y Lecciones: 
--- 1. Usuarios con membresía activa pueden ver contenido publicado.
--- 2. Administradores pueden ver todo. (Se asume que el sistema de pago controla la fecha en 'profiles')
-CREATE POLICY "Members can view published courses" ON public.courses
+-- 1. Usuarios pueden ver contenido gratuito o todo si tienen membresía activa.
+-- 2. Administradores pueden ver todo.
+CREATE POLICY "Users can view published courses" ON public.courses
     FOR SELECT USING (
         is_published = true AND (
+            is_free = true OR
             EXISTS (
                 SELECT 1 FROM public.profiles 
                 WHERE id = auth.uid() AND (membership_expires_at > now() OR is_admin = true)
@@ -145,8 +148,9 @@ CREATE POLICY "Members can view published courses" ON public.courses
         )
     );
 
-CREATE POLICY "Members can view lessons of accessible courses" ON public.lessons
+CREATE POLICY "Users can view lessons of accessible courses" ON public.lessons
     FOR SELECT USING (
+        is_free = true OR
         EXISTS (
             SELECT 1 FROM public.courses 
             WHERE id = course_id AND is_published = true AND (

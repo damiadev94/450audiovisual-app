@@ -106,6 +106,7 @@ export interface Database {
           thumbnail_url: string | null
           order_index: number
           is_published: boolean
+          is_free: boolean
           created_at: string
           updated_at: string
         }
@@ -116,6 +117,7 @@ export interface Database {
           thumbnail_url?: string | null
           order_index?: number
           is_published?: boolean
+          is_free?: boolean
           created_at?: string
           updated_at?: string
         }
@@ -126,6 +128,7 @@ export interface Database {
           thumbnail_url?: string | null
           order_index?: number
           is_published?: boolean
+          is_free?: boolean
           created_at?: string
           updated_at?: string
         },
@@ -143,6 +146,7 @@ export interface Database {
           video_url: string
           duration: number | null
           order_index: number
+          is_free: boolean
           created_at: string
           updated_at: string
         }
@@ -154,6 +158,7 @@ export interface Database {
           video_url: string
           duration?: number | null
           order_index?: number
+          is_free?: boolean
           created_at?: string
           updated_at?: string
         }
@@ -165,6 +170,7 @@ export interface Database {
           video_url?: string
           duration?: number | null
           order_index?: number
+          is_free?: boolean
           created_at?: string
           updated_at?: string
         },

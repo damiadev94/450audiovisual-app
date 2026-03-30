@@ -1,0 +1,26 @@
+# Tasks
+
+- [ ] Project Setup <!-- id: 0 -->
+    - [ ] Initialize Supabase client <!-- id: 1 -->
+    - [ ] Configure environment variables <!-- id: 2 -->
+- [/] Phase 1: Backend Core <!-- id: 3 -->
+    - [/] Database Schema (Supabase) <!-- id: 4 -->
+        - [ ] Users table (profiles, membership status) <!-- id: 5 -->
+        - [ ] Payments table <!-- id: 6 -->
+        - [ ] Subscriptions/Membresía status <!-- id: 7 -->
+        - [ ] Referrals table <!-- id: 8 -->
+        - [ ] Raffles/Tickets table <!-- id: 9 -->
+    - [ ] Payment Integration (MercadoPago) <!-- id: 10 -->
+        - [ ] Webhook endpoint (Edge Function or Next.js API Route) <!-- id: 11 -->
+        - [ ] Payment validation logic <!-- id: 12 -->
+        - [ ] Membership extension logic <!-- id: 13 -->
+- [ ] Phase 2: Dashboard & UX <!-- id: 14 -->
+    - [ ] Authentication (Supabase Auth) <!-- id: 15 -->
+    - [ ] Layout and Navigation <!-- id: 16 -->
+    - [ ] Content Protection <!-- id: 17 -->
+- [ ] Phase 3: Engagement Systems <!-- id: 18 -->
+    - [ ] Content Consumption (Vimeo/Bunny) <!-- id: 19 -->
+    - [ ] Announcements system <!-- id: 20 -->
+- [ ] Phase 4: Growth Systems <!-- id: 21 -->
+    - [ ] Raffle system <!-- id: 22 -->
+    - [ ] Referral system <!-- id: 23 -->

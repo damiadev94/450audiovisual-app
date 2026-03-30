@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     const { action, data } = body
 
     // 1. Validar que sea una notificación de pago
-    if (action === 'payment.created' || action === 'payment.updated') {
+    if (body.type === 'payment' || action === 'payment.created' || action === 'payment.updated') {
       const paymentId = data.id
       const paymentClient = new Payment(client)
 
