@@ -99,7 +99,7 @@ export async function createSubscription(userId: string, userEmail: string) {
   const preApproval = new PreApproval(client);
   const response = await preApproval.create({
     body: {
-      reason: "Bunker 450 Pro - Suscripción Mensual",
+      reason: "450audiovisual Pro - Suscripción Mensual",
       auto_recurring: {
         frequency: 1,
         frequency_type: "months",
