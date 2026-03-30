@@ -28,6 +28,7 @@ export interface Database {
           email: string
           full_name: string | null
           is_admin: boolean
+          membership_status: string
           membership_expires_at: string | null
           referred_by: string | null
           created_at: string
@@ -38,6 +39,7 @@ export interface Database {
           email: string
           full_name?: string | null
           is_admin?: boolean
+          membership_status?: string
           membership_expires_at?: string | null
           referred_by?: string | null
           created_at?: string
@@ -48,6 +50,7 @@ export interface Database {
           email?: string
           full_name?: string | null
           is_admin?: boolean
+          membership_status?: string
           membership_expires_at?: string | null
           referred_by?: string | null
           created_at?: string
@@ -68,6 +71,7 @@ export interface Database {
           currency: string
           status: string
           payment_method: string | null
+          raw_response: Json | null
           created_at: string
           updated_at: string
         }
@@ -79,6 +83,7 @@ export interface Database {
           currency?: string
           status?: string
           payment_method?: string | null
+          raw_response?: Json | null
           created_at?: string
           updated_at?: string
         }
@@ -90,6 +95,79 @@ export interface Database {
           currency?: string
           status?: string
           payment_method?: string | null
+          raw_response?: Json | null
+          created_at?: string
+          updated_at?: string
+        },
+        Relationships: []
+      }
+      /**
+       * Planes: Planes de suscripción disponibles en la plataforma.
+       */
+      plans: {
+        Row: {
+          id: string
+          name: string
+          price: number
+          interval: 'month' | 'year'
+          mercadopago_plan_id: string
+          is_active: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          price: number
+          interval: 'month' | 'year'
+          mercadopago_plan_id: string
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          price?: number
+          interval?: 'month' | 'year'
+          mercadopago_plan_id?: string
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        },
+        Relationships: []
+      }
+      /**
+       * Suscripciones: Estado de la suscripción recurrente de cada usuario.
+       */
+      subscriptions: {
+        Row: {
+          id: string
+          user_id: string
+          plan_id: string
+          status: 'active' | 'inactive' | 'cancelled'
+          current_period_end: string | null
+          external_subscription_id: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          plan_id: string
+          status?: 'active' | 'inactive' | 'cancelled'
+          current_period_end?: string | null
+          external_subscription_id?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          plan_id?: string
+          status?: 'active' | 'inactive' | 'cancelled'
+          current_period_end?: string | null
+          external_subscription_id?: string | null
           created_at?: string
           updated_at?: string
         },
@@ -331,9 +409,10 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      subscription_interval: 'month' | 'year'
+      subscription_status: 'active' | 'inactive' | 'cancelled'
     },
-    CompositeTypes: { // Añade esta sección si no existe
+    CompositeTypes: {
       [_ in never]: never
     }
   }

@@ -1,13 +1,15 @@
-import { createClient } from '@/lib/supabase/server'
+import { SupabaseClient } from '@supabase/supabase-js'
 import { Database } from '@/types/supabase/supabase'
+import { logger } from '@/lib/logger'
 
-type ProfileRow =
-  Database['public']['Tables']['profiles']['Row']
+type ProfileRow = Database['public']['Tables']['profiles']['Row']
 
 /**
  * SERVICIO DE MEMBRESÍA
  * 
  * Contiene la lógica para extender el acceso de los usuarios basándose en sus pagos.
+ * Recibe el SupabaseClient como parámetro (inyección de dependencia) para permitir
+ * que el webhook use el admin client y las páginas usen el client con sesión.
  */
 
 const DAYS_PER_PAYMENT = 30
@@ -17,9 +19,10 @@ const DAYS_PER_PAYMENT = 30
  * Si la membresía ya está activa, se suma a la fecha de expiración actual.
  * Si ha expirado o es nueva, comienza desde ahora.
  */
-export async function extendMembership(userId: string) {
-  const supabase = await createClient()
-
+export async function extendMembership(
+  supabase: SupabaseClient<Database>,
+  userId: string
+): Promise<Date> {
   // 1. Obtener el estado actual de la membresía
   const { data: profile, error: fetchError } = await supabase
     .from('profiles')
@@ -28,7 +31,10 @@ export async function extendMembership(userId: string) {
     .single<Pick<ProfileRow, 'membership_expires_at'>>()
 
   if (fetchError || !profile) {
-    console.error('Error al obtener el perfil para extender membresía:', fetchError)
+    logger.error('membership.fetch_failed', {
+      userId,
+      error: fetchError?.message ?? 'Perfil no encontrado',
+    })
     throw new Error('No se pudo encontrar el perfil del usuario')
   }
 
@@ -46,17 +52,29 @@ export async function extendMembership(userId: string) {
   const newExpiration = new Date(currentExpiration)
   newExpiration.setDate(newExpiration.getDate() + DAYS_PER_PAYMENT)
 
-  // 3. Actualizar en la base de datos
-  const { error: updateError } = await (supabase.from('profiles') as any)
+  // 3. Actualizar en la base de datos (membership_expires_at + membership_status)
+  const { error: updateError } = await supabase
+    .from('profiles')
     .update({
-      membership_expires_at: newExpiration.toISOString()
-    } as Database['public']['Tables']['profiles']['Update'])
+      membership_expires_at: newExpiration.toISOString(),
+      membership_status: 'active',
+    })
     .eq('id', userId)
 
   if (updateError) {
-    console.error('Error al actualizar fecha de membresía:', updateError)
+    logger.error('membership.update_failed', {
+      userId,
+      error: updateError.message,
+    })
     throw updateError
   }
+
+  logger.info('membership.extended', {
+    userId,
+    previousExpiration: profile.membership_expires_at,
+    newExpiration: newExpiration.toISOString(),
+    daysAdded: DAYS_PER_PAYMENT,
+  })
 
   return newExpiration
 }

@@ -1,6 +1,19 @@
 -- Habilitar extensión para generación de UUIDs (Identificadores Únicos Universales)
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+-- =====================================================
+-- ENUMS
+-- Deben definirse ANTES de las tablas que los referencian
+-- =====================================================
+
+CREATE TYPE subscription_interval AS ENUM ('month', 'year');
+
+CREATE TYPE subscription_status AS ENUM ('active', 'inactive', 'cancelled');
+
+-- =====================================================
+-- TABLAS
+-- =====================================================
+
 -- 1. Tabla de Perfiles: Almacena información adicional de los usuarios registrados.
 -- Se vincula directamente con la tabla de autenticación nativa de Supabase (auth.users).
 CREATE TABLE public.profiles (
@@ -8,6 +21,7 @@ CREATE TABLE public.profiles (
     email TEXT UNIQUE NOT NULL,
     full_name TEXT,
     is_admin BOOLEAN DEFAULT false, -- Identifica si el usuario es administrador/creador.
+    membership_status TEXT NOT NULL DEFAULT 'free', -- Estados: free, active, expired, cancelled.
     membership_expires_at TIMESTAMP WITH TIME ZONE, -- Fecha hasta la cual el usuario tiene acceso premium.
     referred_by UUID REFERENCES public.profiles(id), -- Almacena quién invitó a este usuario.
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
@@ -24,11 +38,36 @@ CREATE TABLE public.payments (
     currency TEXT DEFAULT 'ARS',
     status TEXT NOT NULL DEFAULT 'pending', -- Estados: pending, approved, rejected.
     payment_method TEXT,
+    raw_response JSONB, -- Respuesta completa de MercadoPago para debugging/auditoría/soporte.
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 3. Tabla de Sorteos: Define los eventos de sorteo disponibles en la plataforma.
+-- 3. Tabla de Planes: Define los planes de suscripción disponibles.
+CREATE TABLE public.plans (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name TEXT NOT NULL,
+    price NUMERIC(10, 2) NOT NULL,
+    interval subscription_interval NOT NULL,
+    mercadopago_plan_id TEXT UNIQUE NOT NULL,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 4. Tabla de Suscripciones: Registro del estado de suscripción de cada usuario.
+CREATE TABLE public.subscriptions (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
+    plan_id UUID REFERENCES public.plans(id) ON DELETE CASCADE NOT NULL,
+    status subscription_status NOT NULL DEFAULT 'active',
+    current_period_end TIMESTAMP WITH TIME ZONE, -- Fecha en la que termina el período actual de facturación.
+    external_subscription_id TEXT UNIQUE, -- ID de preapproval en MercadoPago.
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 5. Tabla de Sorteos: Define los eventos de sorteo disponibles en la plataforma.
 CREATE TABLE public.raffles (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     title TEXT NOT NULL,
@@ -38,18 +77,18 @@ CREATE TABLE public.raffles (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 4. Tabla de Tickets: Registra la participación de los usuarios en los sorteos.
+-- 6. Tabla de Tickets: Registra la participación de los usuarios en los sorteos.
 -- Cada ticket está vinculado a un pago y a un sorteo específico.
 CREATE TABLE public.tickets (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
     raffle_id UUID REFERENCES public.raffles(id) ON DELETE CASCADE,
     payment_id UUID REFERENCES public.payments(id) ON DELETE SET NULL,
-    ticket_number TEXT UNIQUE NOT NULL, -- Número lógico único del ticket (ej. BH-0001).
+    ticket_number TEXT UNIQUE NOT NULL, -- Número lógico único del ticket (ej. B450-0001).
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 5. Tabla de Referidos: Seguimiento detallado del crecimiento orgánico.
+-- 7. Tabla de Referidos: Seguimiento detallado del crecimiento orgánico.
 CREATE TABLE public.referrals (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     referrer_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL, -- Quién invita.
@@ -59,7 +98,7 @@ CREATE TABLE public.referrals (
     UNIQUE(referred_id) -- Un usuario solo puede ser referido por una persona.
 );
 
--- 6. Tabla de Anuncios: Comunicaciones internas para los miembros del dashboard.
+-- 8. Tabla de Anuncios: Comunicaciones internas para los miembros del dashboard.
 CREATE TABLE public.announcements (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     title TEXT NOT NULL,
@@ -70,7 +109,7 @@ CREATE TABLE public.announcements (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 7. Tabla de Cursos: Organización del contenido académico.
+-- 9. Tabla de Cursos: Organización del contenido académico.
 CREATE TABLE public.courses (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     title TEXT NOT NULL,
@@ -83,7 +122,7 @@ CREATE TABLE public.courses (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 8. Tabla de Lecciones: El contenido audiovisual individual dentro de los cursos.
+-- 10. Tabla de Lecciones: El contenido audiovisual individual dentro de los cursos.
 CREATE TABLE public.lessons (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     course_id UUID REFERENCES public.courses(id) ON DELETE CASCADE NOT NULL,
@@ -97,7 +136,7 @@ CREATE TABLE public.lessons (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 9. Tabla de Progreso: Seguimiento del consumo de contenido por parte de los miembros.
+-- 11. Tabla de Progreso: Seguimiento del consumo de contenido por parte de los miembros.
 CREATE TABLE public.user_progress (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
@@ -107,33 +146,14 @@ CREATE TABLE public.user_progress (
     UNIQUE(user_id, lesson_id) -- Un registro de progreso por usuario/lección.
 );
 
-CREATE TABLE public.suscriptions (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
-    plan_id UUID REFERENCES public.plans(id) ON DELETE CASCADE NOT NULL,
-    
-)
-
-CREATE TABLE public.plans (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    name TEXT NOT NULL,
-    price NUMERIC(10, 2) NOT NULL,
-    interval subscription_interval NOT NULL,
-    mercadopago_plan_id TEXT UNIQUE NOT NULL,
-    is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
-)
-
-CREATE TYPE subscription_interval AS ENUM ('month', 'year');
-
-CREATE TYPE subscription_status AS ENUM ('active', 'inactive', 'cancelled');
-
+-- =====================================================
 -- SEGURIDAD: Row Level Security (RLS)
--- Estas sentencias aseguran que los usuarios NO puedan ver datos de otros usuarios a menos que se defina una política específica.
+-- =====================================================
 
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.payments ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.plans ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.subscriptions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.raffles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.tickets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.referrals ENABLE ROW LEVEL SECURITY;
@@ -142,10 +162,11 @@ ALTER TABLE public.courses ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.lessons ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_progress ENABLE ROW LEVEL SECURITY;
 
--- POLÍTICAS DE ACCESO
+-- =====================================================
+-- POLÍTICAS DE ACCESO — USUARIOS
+-- =====================================================
 
 -- Perfiles: El usuario solo puede ver y editar sus propios datos de perfil.
--- Los administradores (is_admin = true) pueden ver todos los perfiles en el futuro (opcional).
 CREATE POLICY "Users can view their own profile" ON public.profiles
     FOR SELECT USING (auth.uid() = id);
 
@@ -154,6 +175,14 @@ CREATE POLICY "Users can update their own profile" ON public.profiles
 
 -- Pagos: El usuario solo puede ver su propio historial de pagos.
 CREATE POLICY "Users can view their own payments" ON public.payments
+    FOR SELECT USING (auth.uid() = user_id);
+
+-- Planes: Cualquier usuario puede ver los planes activos.
+CREATE POLICY "Anyone can view active plans" ON public.plans
+    FOR SELECT USING (is_active = true);
+
+-- Suscripciones: El usuario solo ve sus propias suscripciones.
+CREATE POLICY "Users can view their own subscriptions" ON public.subscriptions
     FOR SELECT USING (auth.uid() = user_id);
 
 -- Cursos y Lecciones: 
@@ -199,15 +228,63 @@ CREATE POLICY "Anyone can view active raffles" ON public.raffles
 CREATE POLICY "Users can view their own tickets" ON public.tickets
     FOR SELECT USING (auth.uid() = user_id);
 
--- Referidos: Los usuarios pueden ver su propia actividad de referidos (como referente o referido).
+-- Referidos: Los usuarios pueden ver su propia actividad de referidos.
 CREATE POLICY "Users can view their own referrals" ON public.referrals
     FOR SELECT USING (auth.uid() = referrer_id OR auth.uid() = referred_id);
 
--- Anuncios: Todos los usuarios pueden ver los anuncios que no han expirado y están activos.
+-- Anuncios: Todos los usuarios pueden ver los anuncios activos y no expirados.
 CREATE POLICY "Anyone can view active announcements" ON public.announcements
     FOR SELECT USING (is_active = true AND (expires_at IS NULL OR expires_at > now()));
 
+-- =====================================================
+-- POLÍTICAS DE ACCESO — ADMINISTRADORES
+-- =====================================================
+
+-- Admins pueden ver todos los perfiles (panel admin).
+CREATE POLICY "Admins can view all profiles" ON public.profiles
+    FOR SELECT USING (
+        EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND is_admin = true)
+    );
+
+-- Admins pueden gestionar cursos (CRUD completo).
+CREATE POLICY "Admins can manage courses" ON public.courses
+    FOR ALL USING (
+        EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND is_admin = true)
+    );
+
+-- Admins pueden gestionar lecciones (CRUD completo).
+CREATE POLICY "Admins can manage lessons" ON public.lessons
+    FOR ALL USING (
+        EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND is_admin = true)
+    );
+
+-- Admins pueden ver todos los pagos (auditoría).
+CREATE POLICY "Admins can view all payments" ON public.payments
+    FOR SELECT USING (
+        EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND is_admin = true)
+    );
+
+-- Admins pueden gestionar sorteos.
+CREATE POLICY "Admins can manage raffles" ON public.raffles
+    FOR ALL USING (
+        EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND is_admin = true)
+    );
+
+-- Admins pueden gestionar anuncios.
+CREATE POLICY "Admins can manage announcements" ON public.announcements
+    FOR ALL USING (
+        EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND is_admin = true)
+    );
+
+-- Admins pueden gestionar planes.
+CREATE POLICY "Admins can manage plans" ON public.plans
+    FOR ALL USING (
+        EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND is_admin = true)
+    );
+
+-- =====================================================
 -- FUNCIONES Y TRIGGERS (AUTOMATIZACIÓN)
+-- =====================================================
 
 -- Función para actualizar el campo 'updated_at' automáticamente en cada edición.
 CREATE OR REPLACE FUNCTION public.handle_updated_at()
@@ -234,8 +311,16 @@ CREATE TRIGGER on_lessons_updated
     BEFORE UPDATE ON public.lessons
     FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
 
--- Función para crear automáticamente un perfil en 'public.profiles' cuando un usuario se registra en la plataforma.
--- Esto sincroniza la base de datos de Auth con nuestra base de datos de negocio.
+CREATE TRIGGER on_plans_updated
+    BEFORE UPDATE ON public.plans
+    FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
+
+CREATE TRIGGER on_subscriptions_updated
+    BEFORE UPDATE ON public.subscriptions
+    FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
+
+-- Función para crear automáticamente un perfil en 'public.profiles' cuando un usuario se registra.
+-- Sincroniza Auth con nuestra base de datos de negocio.
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
