@@ -107,6 +107,28 @@ CREATE TABLE public.user_progress (
     UNIQUE(user_id, lesson_id) -- Un registro de progreso por usuario/lección.
 );
 
+CREATE TABLE public.suscriptions (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
+    plan_id UUID REFERENCES public.plans(id) ON DELETE CASCADE NOT NULL,
+    
+)
+
+CREATE TABLE public.plans (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name TEXT NOT NULL,
+    price NUMERIC(10, 2) NOT NULL,
+    interval subscription_interval NOT NULL,
+    mercadopago_plan_id TEXT UNIQUE NOT NULL,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+)
+
+CREATE TYPE subscription_interval AS ENUM ('month', 'year');
+
+CREATE TYPE subscription_status AS ENUM ('active', 'inactive', 'cancelled');
+
 -- SEGURIDAD: Row Level Security (RLS)
 -- Estas sentencias aseguran que los usuarios NO puedan ver datos de otros usuarios a menos que se defina una política específica.
 
