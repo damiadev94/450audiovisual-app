@@ -6,8 +6,9 @@ import { processApprovedPayment } from '@/services/payments.service'
 import { handleSubscriptionUpdate } from '@/services/subscriptions.service'
 import { logger } from '@/lib/utils/logger'
 import client from '@/lib/mercadopago/client'
+import { MPWebhookSchema } from '@/lib/validation/mpwebhook.schema'
 
-/**
+/* *
  * WEBHOOK DE MERCADOPAGO
  * 
  * Endpoint que recibe notificaciones automáticas de MercadoPago.
@@ -21,10 +22,22 @@ import client from '@/lib/mercadopago/client'
  */
 export async function POST(request: Request) {
   try {
+
+    const parsed = MPWebhookSchema.safeParse(await request.json());
+
+    if (!parsed.success) {
+      logger.warn("invalid.webhook.payload", {
+        issues: parsed.error.issues,
+      });
+      // ! IMPORTANTE:
+      // * Respondemos 200 para evitar retries infinitos
+      return NextResponse.json({ received: true });
+    }
+
     const body = await request.json()
     const { action, data, type } = body
 
-    // 1. Verificar firma del webhook
+    // * 1. Verificar firma del webhook
     const xSignature = request.headers.get('x-signature')
     const xRequestId = request.headers.get('x-request-id')
     const dataId = data?.id?.toString() || ''
@@ -40,10 +53,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Firma inválida' }, { status: 403 })
     }
 
-    // Cliente admin (bypasa RLS, no necesita cookies de sesión)
+    // * Cliente admin (bypasa RLS, no necesita cookies de sesión)
     const supabase = createAdminClient()
 
-    // 2. Procesar según tipo de evento
+    // * 2. Procesar según tipo de evento
     if (type === 'payment' || action === 'payment.created' || action === 'payment.updated') {
       await handlePaymentEvent(data.id, supabase)
     } else if (type === 'subscription_preapproval' || action === 'subscription_preapproval.updated') {
@@ -52,19 +65,19 @@ export async function POST(request: Request) {
       logger.info('webhook.unhandled_type', { type, action })
     }
 
-    // MercadoPago espera un 200/201 para confirmar la recepción
+    // * MercadoPago espera un 200/201 para confirmar la recepción
     return NextResponse.json({ received: true }, { status: 200 })
 
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error'
     logger.error('webhook.unhandled_error', { error: message })
 
-    // Retornamos 200 para evitar que MP reintente infinitamente por errores de lógica
+    // * Retornamos 200 para evitar que MP reintente infinitamente por errores de lógica
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 200 })
   }
 }
 
-/**
+/* *
  * Procesa un evento de pago:
  * - Consulta la API de MercadoPago para obtener el estado real
  * - Solo procesa pagos aprobados
@@ -76,7 +89,7 @@ async function handlePaymentEvent(
 ) {
   const paymentClient = new Payment(client)
 
-  // Consultar API de MercadoPago directamente (nunca confiar solo en el payload del webhook)
+  // * Consultar API de MercadoPago directamente (nunca confiar solo en el payload del webhook)
   const payment = await paymentClient.get({ id: Number(paymentId) })
 
   logger.info('webhook.payment_received', {
@@ -86,7 +99,7 @@ async function handlePaymentEvent(
     amount: payment.transaction_amount,
   })
 
-  // Solo procesamos pagos aprobados
+  // * Solo procesamos pagos aprobados
   if (payment.status !== 'approved') {
     logger.info('webhook.payment_not_approved', {
       paymentId: payment.id,
@@ -119,7 +132,7 @@ async function handlePaymentEvent(
   })
 }
 
-/**
+/* *
  * Procesa un evento de suscripción (preapproval):
  * - Consulta la API de MercadoPago para obtener el estado real
  * - Sincroniza el estado de la suscripción en la base de datos
@@ -130,7 +143,7 @@ async function handleSubscriptionEvent(
 ) {
   const preApprovalClient = new PreApproval(client)
 
-  // Consultar API de MercadoPago para estado real
+  // * Consultar API de MercadoPago para estado real
   const preApproval = await preApprovalClient.get({ id: preapprovalId.toString() })
 
   logger.info('webhook.subscription_received', {

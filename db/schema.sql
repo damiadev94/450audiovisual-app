@@ -146,6 +146,11 @@ CREATE TABLE public.user_progress (
     UNIQUE(user_id, lesson_id) -- Un registro de progreso por usuario/lección.
 );
 
+CREATE TABLE public.webhooks_events (
+    event_id TEXT UNIQUE NOT NULL,
+    processed_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+)
+
 -- =====================================================
 -- SEGURIDAD: Row Level Security (RLS)
 -- =====================================================
