@@ -1,6 +1,6 @@
 import { SupabaseClient } from '@supabase/supabase-js'
-import { Database } from '@/types/supabase/supabase'
-import { logger } from '@/lib/logger'
+import { Database } from '@/types/supabase'
+import { logger } from '@/lib/utils/logger'
 
 /**
  * SERVICIO DE SUSCRIPCIONES

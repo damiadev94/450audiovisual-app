@@ -1,6 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
-import { Database } from '@/types/supabase/supabase'
+import { Database } from '@/types/supabase'
 
 /**
  * Función para actualizar la sesión de Supabase en cada request.

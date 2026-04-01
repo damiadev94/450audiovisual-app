@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { Database } from '@/types/supabase/supabase'
+import { Database } from '@/types/supabase'
 
 // Cliente admin que bypasea RLS — SOLO para uso server-side (webhooks, cron)
 export function createAdminClient() {

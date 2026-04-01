@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server'
 import { Payment, PreApproval } from 'mercadopago'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { verifyWebhookSignature } from '@/lib/mercadopago/webhook-signature'
-import { processApprovedPayment } from '@/services/payments'
-import { handleSubscriptionUpdate } from '@/services/subscriptions'
-import { logger } from '@/lib/logger'
-import client from '@/lib/mercadopago/mercadopago'
+import { verifyWebhookSignature } from '@/lib/mercadopago/service'
+import { processApprovedPayment } from '@/services/payments.service'
+import { handleSubscriptionUpdate } from '@/services/subscriptions.service'
+import { logger } from '@/lib/utils/logger'
+import client from '@/lib/mercadopago/client'
 
 /**
  * WEBHOOK DE MERCADOPAGO

@@ -1,6 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import { Database } from '@/types/supabase/supabase'
+import { Database } from '@/types/supabase'
 import { SupabaseClient } from '@supabase/supabase-js'
 
 /**

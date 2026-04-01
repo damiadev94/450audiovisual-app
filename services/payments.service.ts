@@ -1,8 +1,8 @@
 import { SupabaseClient } from '@supabase/supabase-js'
-import { Database, Json } from '@/types/supabase/supabase'
-import { extendMembership } from './membership'
-import { logger } from '@/lib/logger'
-import client from '@/lib/mercadopago/mercadopago'
+import { Database, Json } from '@/types/supabase'
+import { extendMembership } from './memberships.service'
+import { logger } from '@/lib/utils/logger'
+import client from '@/lib/mercadopago/client'
 import { Preference, PreApproval } from 'mercadopago'
 
 /**

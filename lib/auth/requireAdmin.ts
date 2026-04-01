@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import { Database } from '@/types/supabase/supabase'
+import { Database } from '@/types/supabase'
 
 type ProfileRow = Database['public']['Tables']['profiles']['Row']
 

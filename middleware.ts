@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 import { createServerClient } from '@supabase/ssr'
-import { Database } from '@/types/supabase/supabase'
+import { Database } from '@/types/supabase'
 
 /**
  * Middleware de Next.js — se ejecuta en cada request.
