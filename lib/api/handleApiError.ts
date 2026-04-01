@@ -1,4 +1,4 @@
-import { ApiError } from "./apiError";
+import { ApiError } from "./ApiError";
 import { logger } from "../utils/logger";
 
 export function handleApiError(error: unknown) {
