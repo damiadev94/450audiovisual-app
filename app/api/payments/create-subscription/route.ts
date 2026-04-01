@@ -1,9 +1,30 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createSubscription } from '@/services/payments.service';
+import {
+  CreateSubscriptionSchema,
+} from "@/lib/validation/payments.schema";
 
 export async function POST(request: Request) {
   try {
+
+    /**
+     * 1️⃣ Validar input externo (boundary validation)
+     */
+    const body = await request.json().catch(() => ({}));
+
+    const parsed = CreateSubscriptionSchema.safeParse(body);
+
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: 'Datos de suscripción inválidos' },
+        { status: 400 }
+      );
+    }
+
+    /**
+ * 2️⃣ Obtener usuario autenticado
+ */
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
