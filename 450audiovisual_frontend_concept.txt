@@ -1,0 +1,1943 @@
+<!-- Dashboard -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>450audiovisual | Modern Auteur Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#775a00",
+              "secondary-fixed": "#e4e2e1",
+              "surface-tint": "#f3bf32",
+              "on-primary-fixed-variant": "#5a4300",
+              "surface-container-high": "#2a2a2a",
+              "error-container": "#93000a",
+              "inverse-surface": "#e5e2e1",
+              "background": "#131313",
+              "on-tertiary-fixed-variant": "#004b71",
+              "inverse-on-surface": "#313030",
+              "on-secondary-fixed-variant": "#474746",
+              "on-error": "#690005",
+              "secondary-container": "#474746",
+              "on-error-container": "#ffdad6",
+              "surface-container-low": "#1c1b1b",
+              "on-secondary-fixed": "#1b1c1c",
+              "on-secondary": "#303030",
+              "error": "#ffb4ab",
+              "outline": "#9b8f7a",
+              "on-tertiary-container": "#004f76",
+              "primary": "#ffd05e",
+              "tertiary-fixed-dim": "#8fcdff",
+              "on-surface-variant": "#d2c5ad",
+              "tertiary-fixed": "#cbe6ff",
+              "surface-bright": "#3a3939",
+              "on-primary-fixed": "#251a00",
+              "on-tertiary-fixed": "#001e30",
+              "on-surface": "#e5e2e1",
+              "on-primary": "#3f2e00",
+              "secondary": "#c8c6c5",
+              "surface-container": "#201f1f",
+              "on-tertiary": "#003450",
+              "secondary-fixed-dim": "#c8c6c5",
+              "on-secondary-container": "#b6b5b4",
+              "surface-variant": "#353534",
+              "on-background": "#e5e2e1",
+              "primary-fixed": "#ffdf99",
+              "on-primary-container": "#5e4700",
+              "primary-fixed-dim": "#f3bf32",
+              "outline-variant": "#4e4634",
+              "surface-container-lowest": "#0e0e0e",
+              "surface-container-highest": "#353534",
+              "primary-container": "#e6b325",
+              "tertiary-container": "#70c2ff",
+              "surface-dim": "#131313",
+              "surface": "#131313",
+              "tertiary": "#b2dbff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "1rem", "xl": "1.25rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .cinematic-gradient {
+            background: linear-gradient(135deg, #ffd05e 0%, #e6b325 100%);
+        }
+        .glass-panel {
+            background: rgba(19, 19, 19, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#131313]/70 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full shadow-[0_20px_40px_rgba(229,226,225,0.05)]">
+<div class="text-[#ffd05e] font-manrope font-extrabold tracking-tighter text-xl">450audiovisual</div>
+<div class="flex items-center gap-4">
+<button class="text-[#e5e2e1] hover:bg-[#353534] transition-colors p-2 rounded-full active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="text-[#e5e2e1] hover:bg-[#353534] transition-colors p-2 rounded-full active:scale-95 transition-transform relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden border border-outline-variant/20">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="High-end studio portrait of a professional film editor in a dimly lit suite with warm ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7O9nfQTXWwktbQs4zXyy-zLQFgpcsC0NC6g-e5rPhfwi_pVYZUIW1sTkFDgSjTile-7gJhTrqnRzv933CjKgx-V16tqdAAlKgTEGGT2Q2RffdjadRWDkANDhOvWXsXKsLgMZBml4yl1b5HxCcuvfcNz9vVsV9Fu8pzh0yQUhONE0oi-n1O_breb1zvDFoNoPVQ8odWzWtfRx2EMGqaxr3A5CaGcVaVw1MOW1-z8VgVu5enyL8npsk9YHMpuuEkWJPBU6QNymNMkQ"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-screen-xl mx-auto space-y-12">
+<!-- Header Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="space-y-1">
+<span class="cinematic-gradient text-on-primary font-label text-[10px] uppercase tracking-[0.2em] font-bold px-3 py-1 rounded-full inline-block mb-2">PRO MEMBER</span>
+<h1 class="font-headline font-extrabold text-3xl md:text-5xl text-on-surface tracking-tight">Welcome back, <span class="text-primary">Julian</span></h1>
+</div>
+<div class="hidden md:flex gap-4">
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border-2 border-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="bolt">bolt</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant font-medium">Daily Streak</p>
+<p class="text-on-surface font-bold">12 Days</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Main Content -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Continue Learning Card -->
+<div class="md:col-span-8 group relative overflow-hidden bg-surface-container rounded-xl shadow-[0_0_40px_rgba(0,0,0,0.3)] border border-outline-variant/10">
+<div class="absolute inset-0 z-0 opacity-40 transition-transform duration-700 group-hover:scale-105">
+<img class="w-full h-full object-cover" data-alt="Cinematic shot of a vintage film camera lens with soft golden flare and blurred studio lights in the background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7r8lR4KwWfivxdcpy0h1xwBr8XJCcyUwQk5U8GuHd5AU2R83pa6VHdX8KX1wVN299_4PjwiCv2iWQHGGp5TdZirXbJ4jDZiIlG3bUquqkwoTRez7nXgliLfL42JvaBx-2XXwq_YwmksOKYkehQLgQ5g-gRuqjtgnUt823GzPlLunMqRT42dctciUgB07xkvU6xYzAII1TpVimX63i21CL5iMkVqkuBDqpfEtijihS9pnTKqwXCNpxkq6SwRnKF5IUYevCX9roJzg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-surface-container/60 to-transparent"></div>
+</div>
+<div class="relative z-10 p-8 h-full flex flex-col justify-end min-h-[320px]">
+<div class="space-y-4">
+<div>
+<p class="text-primary text-xs font-bold uppercase tracking-widest mb-1">Continue Learning</p>
+<h2 class="text-2xl md:text-3xl font-headline font-bold text-on-surface">Cinematography Essentials</h2>
+</div>
+<div class="space-y-2 max-w-md">
+<div class="flex justify-between text-xs text-on-surface-variant">
+<span>Module 4: Lighting Theory</span>
+<span>65%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full cinematic-gradient w-[65%] rounded-full shadow-[0_0_10px_rgba(255,208,94,0.4)]"></div>
+</div>
+</div>
+<button class="cinematic-hover flex items-center gap-2 cinematic-gradient text-on-primary font-bold px-8 py-3 rounded-md active:scale-95 transition-all w-fit shadow-lg">
+<span class="material-symbols-outlined" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                            Resume Lesson
+                        </button>
+</div>
+</div>
+</div>
+<!-- Weekly Goals Widget -->
+<div class="md:col-span-4 bg-surface-container-low rounded-xl p-8 flex flex-col items-center justify-center text-center space-y-6 border border-outline-variant/5">
+<h3 class="font-headline font-bold text-lg text-on-surface-variant">Weekly Goals</h3>
+<div class="relative w-36 h-36">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="72" cy="72" fill="transparent" r="60" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary" cx="72" cy="72" fill="transparent" r="60" stroke="currentColor" stroke-dasharray="377" stroke-dashoffset="151" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-3xl font-headline font-extrabold text-on-surface">3/5</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Lessons</span>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed px-4">You're on track to finishing <span class="text-on-surface font-semibold">Cinematography Essentials</span> by Sunday.</p>
+</div>
+</div>
+<!-- Recommended Courses -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<h2 class="font-headline font-bold text-2xl">Recommended for You</h2>
+<a class="text-primary text-sm font-medium hover:underline underline-offset-4" href="#">Browse all</a>
+</div>
+<div class="flex overflow-x-auto gap-6 pb-4 hide-scrollbar -mx-6 px-6">
+<!-- Course Card 1 -->
+<div class="flex-none w-72 group">
+<div class="aspect-video rounded-lg overflow-hidden relative mb-4 bg-surface-container-highest">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Dramatic moody forest landscape with fog and deep blue tones, cinematic wide angle shot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhJxW6F5gR7Odk464frnxCJlQTwlxu6kn3EGIhawL_6mZ3iD9_VrVXvyYr-1ziNWuiqRgI9oymDGWhHu23eaTx21K8tNiKsTpOWrFmTHyECS98HkedR8qTB_SFi9Mqnwgsi41jmYuu0-8V2Ngnnx68TUaY8pfKXSHa3UrY58ouocRX1NLJLsUTsIF99akERXcpTLDTIg6V1TJftHyLjuD1t9HsTLRXcNDjsMW8Ewh0mEfU6YpO89sXY5Q0uR-MvDIHjrfWpmJ6EK8"/>
+<div class="absolute top-2 right-2 px-2 py-1 bg-surface-container-lowest/80 backdrop-blur-md rounded text-[10px] font-bold text-primary">PRO</div>
+</div>
+<h3 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Color Grading in Resolve</h3>
+<p class="text-sm text-on-surface-variant mt-1">12 Lessons • 4.5h</p>
+</div>
+<!-- Course Card 2 -->
+<div class="flex-none w-72 group">
+<div class="aspect-video rounded-lg overflow-hidden relative mb-4 bg-surface-container-highest">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Close up of professional audio mixer board with glowing neon level meters in a dark recording studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5b9zs3cOMFrgJ9nxZDeU3Jxj2L8MlyCcHqx4GGO4MtgPVd2SDWht5IVwbH_pSXopFUS7FIJq929Uw0pqZx5M7DACTQf0FMrpYVg6_42xe_wrbXdcjfnhTtUdkwhc0LJWJlxDbJty9cjLZgykIZ1PfP9ptWRoiXnVQE7GpD_7u6qjOR5YzgSCymqg-UZqIAPaCyYPyMeia7FyFaGvCQ6cT0H1Y-cpYuHFCAplZy8-pM6vsxtnSX5moQaT0nD-Rui8g7hQsazV0-84"/>
+<div class="absolute top-2 right-2 px-2 py-1 bg-surface-container-lowest/80 backdrop-blur-md rounded text-[10px] font-bold text-tertiary">FREE</div>
+</div>
+<h3 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Sound Design Mastery</h3>
+<p class="text-sm text-on-surface-variant mt-1">8 Lessons • 2.8h</p>
+</div>
+<!-- Course Card 3 -->
+<div class="flex-none w-72 group">
+<div class="aspect-video rounded-lg overflow-hidden relative mb-4 bg-surface-container-highest">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Behind the scenes film production with director watching a monitor and silhouette of lighting rigs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3xLOIJzMy-xZuGyZeZ-DuoM1dBIVq4qLyACHn8ccCdXlP1LsxjKrJ2YzSiESTE9-zJkNatWXeA1LYNBIgPcYFJ3WMvL3WGQ8H_9Og0Im-YUI_I5BARbDBKUZHe_egqFByms-3-ZzSMhPZFSgaGX8tpzczJegVcJiX2dvhqYkyt0WsI32rwoLxq5e7CBd-bg60yw1AIkRrRecuV5-U9YBl7cLTWlxEqLyMMq4Trr-WYoJnNHSZ6bw-cmXlflzqm-fgEZBByL_pOjE"/>
+<div class="absolute top-2 right-2 px-2 py-1 bg-surface-container-lowest/80 backdrop-blur-md rounded text-[10px] font-bold text-primary">PRO</div>
+</div>
+<h3 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Directing Narrative Shorts</h3>
+<p class="text-sm text-on-surface-variant mt-1">24 Lessons • 6.2h</p>
+</div>
+<!-- Course Card 4 -->
+<div class="flex-none w-72 group">
+<div class="aspect-video rounded-lg overflow-hidden relative mb-4 bg-surface-container-highest">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Macro shot of a film editor's keyboard with glowing backlight in a dark workstation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6gdk5hmTGJ19scjwPW5bDaKKWl5Hz8zZhS029URBr17gsrSmac6WW9cbgvEaaaPip2gFmOn-UZO4RM1HeUE5ybVmL5MosoU6sHyDidm-qEX0ub3p4l5b0X9kvvdl6v8pvMvtnRIWoFZLpK6q4P8-MVe7bmwfH-S3pnW16VA_uxj9HfnrPviHiYz-tp30iNNQkoxS1Q6uzg7ctPL2iiE9pc6DwoQed065Wq_FGhYJdgmKgUk3U7tlkglV5RDOyK5BDA5sBgLK_qcc"/>
+<div class="absolute top-2 right-2 px-2 py-1 bg-surface-container-lowest/80 backdrop-blur-md rounded text-[10px] font-bold text-primary">PRO</div>
+</div>
+<h3 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Advanced Editing Workflow</h3>
+<p class="text-sm text-on-surface-variant mt-1">15 Lessons • 3.5h</p>
+</div>
+</div>
+</section>
+<!-- Monthly Raffle Card -->
+<section class="bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/10">
+<div class="grid grid-cols-1 md:grid-cols-2">
+<div class="p-8 md:p-12 space-y-6 flex flex-col justify-center">
+<div class="space-y-2">
+<span class="text-primary font-label text-[10px] uppercase tracking-[0.2em] font-bold">Monthly Raffle</span>
+<h2 class="text-3xl md:text-4xl font-headline font-extrabold text-on-surface">Sony A7S III Giveaway</h2>
+<p class="text-on-surface-variant max-w-sm">Level up your kit with the ultimate low-light beast. Entries close in 3 days.</p>
+</div>
+<div class="flex gap-4">
+<div class="text-center">
+<div class="w-12 h-12 flex items-center justify-center bg-surface-container-highest rounded-lg text-xl font-bold font-headline">03</div>
+<span class="text-[10px] uppercase text-on-surface-variant mt-1 block">Days</span>
+</div>
+<div class="text-center">
+<div class="w-12 h-12 flex items-center justify-center bg-surface-container-highest rounded-lg text-xl font-bold font-headline">14</div>
+<span class="text-[10px] uppercase text-on-surface-variant mt-1 block">Hrs</span>
+</div>
+<div class="text-center">
+<div class="w-12 h-12 flex items-center justify-center bg-surface-container-highest rounded-lg text-xl font-bold font-headline">52</div>
+<span class="text-[10px] uppercase text-on-surface-variant mt-1 block">Min</span>
+</div>
+</div>
+<button class="w-fit cinematic-gradient text-on-primary font-bold px-10 py-4 rounded-md active:scale-95 transition-all shadow-xl shadow-primary/10">
+                        Get Tickets
+                    </button>
+</div>
+<div class="relative min-h-[300px] bg-surface-container-highest">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="Sleek professional mirrorless camera sitting on a minimalist dark wood surface with soft directional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFF1qIqFOKSM0wywi2TiT5-22Z4tAbKH7OT1YGXAGAWtfPMFwu3H-8Po5ICmPkhLtuhQWwSaJwXjb9d73QtshIh9uoJSrmKNWk82MSiLrZU3FEhPCZLQDWiLu3cLjpce-TOvCIynwHe2nVpElbsjbxfPRxIbcjNBFlnS9u1QPZ6pWSYo_YVFXgVfgOI3TGWQSTHe8vbMwSOEhVNmi2z2HFiQSfeFe3-4idTbvh39pj7KUkDPUnjLeKvpcVVJ-NaRAF_e8qsDiwGus"/>
+<div class="absolute inset-0 bg-gradient-to-r from-surface-container-low via-transparent to-transparent md:block hidden"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent md:hidden"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 border-t border-[#353534]/15 bg-[#131313]/70 backdrop-blur-xl flex justify-around items-center px-4 py-3 w-full pb-safe">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center bg-[#ffd05e] text-[#131313] rounded-full p-3 shadow-[0_0_15px_rgba(255,208,94,0.3)] active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+</a>
+<!-- Courses -->
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="video_library">video_library</span>
+</a>
+<!-- Raffles -->
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="local_activity">local_activity</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+</nav>
+<!-- Background Atmospheric Touches -->
+<div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full pointer-events-none z-[-1]"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-tertiary/5 blur-[150px] rounded-full pointer-events-none z-[-1]"></div>
+</body></html>
+
+<!-- Raffles Page -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>450audiovisual - Creator Raffles</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-primary": "#775a00",
+                        "secondary-fixed": "#e4e2e1",
+                        "surface-tint": "#f3bf32",
+                        "on-primary-fixed-variant": "#5a4300",
+                        "surface-container-high": "#2a2a2a",
+                        "error-container": "#93000a",
+                        "inverse-surface": "#e5e2e1",
+                        "background": "#131313",
+                        "on-tertiary-fixed-variant": "#004b71",
+                        "inverse-on-surface": "#313030",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-error": "#690005",
+                        "secondary-container": "#474746",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#1c1b1b",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-secondary": "#303030",
+                        "error": "#ffb4ab",
+                        "outline": "#9b8f7a",
+                        "on-tertiary-container": "#004f76",
+                        "primary": "#ffd05e",
+                        "tertiary-fixed-dim": "#8fcdff",
+                        "on-surface-variant": "#d2c5ad",
+                        "tertiary-fixed": "#cbe6ff",
+                        "surface-bright": "#3a3939",
+                        "on-primary-fixed": "#251a00",
+                        "on-tertiary-fixed": "#001e30",
+                        "on-surface": "#e5e2e1",
+                        "on-primary": "#3f2e00",
+                        "secondary": "#c8c6c5",
+                        "surface-container": "#201f1f",
+                        "on-tertiary": "#003450",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-secondary-container": "#b6b5b4",
+                        "surface-variant": "#353534",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed": "#ffdf99",
+                        "on-primary-container": "#5e4700",
+                        "primary-fixed-dim": "#f3bf32",
+                        "outline-variant": "#4e4634",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container-highest": "#353534",
+                        "primary-container": "#e6b325",
+                        "tertiary-container": "#70c2ff",
+                        "surface-dim": "#131313",
+                        "surface": "#131313",
+                        "tertiary": "#b2dbff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "1rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(19, 19, 19, 0.7);
+            backdrop-filter: blur(20px);
+        }
+        .cinematic-gradient {
+            background: linear-gradient(135deg, #ffd05e 0%, #e6b325 100%);
+        }
+        .ticket-pattern {
+            background-image: radial-gradient(#ffd05e 1px, transparent 1px);
+            background-size: 8px 8px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 w-full bg-[#131313]/70 backdrop-blur-xl shadow-[0_20px_40px_rgba(229,226,225,0.05)]">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline/20">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a young creative professional with modern glasses in a moody studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7e1U_HQoJHBrN7P4unQDwpcWSlobC-x6yLyUYjxzewH7ElcgzI07uAGXLjbdu_2LzHvd50Ox8VrMlZjwIvr-3N-imocA7CgXTzYr3EV-EWNIVDKaiN80LulEvG8nq4XfE4BVfai8ztrkgGM6YTJ_QFX93hl3JiOYWyKNXEu75x9ou4j9ybmFx9qFw02jUvLQMCaKyHgCcwB5U1g7EZXsoOXZ_wuc3mP6RyI7CRt-b08Y3kRTHWHUyYqCCMmRujavktY7mqQ9oJJc"/>
+</div>
+<span class="text-[#ffd05e] font-manrope font-extrabold tracking-tighter text-xl">450audiovisual</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-[#ffd05e] hover:bg-[#353534] transition-colors active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto space-y-8">
+<!-- User Stats Section -->
+<section class="bg-surface-container-low rounded-lg p-6 flex items-center justify-between shadow-sm">
+<div class="space-y-1">
+<p class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Your Tickets</p>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-headline font-extrabold text-primary">15</span>
+<span class="text-on-surface-variant text-sm">Active</span>
+</div>
+<a class="inline-flex items-center gap-1 text-primary text-sm font-medium hover:underline" href="#">
+                    How to get more
+                    <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<div class="relative w-24 h-24 bg-surface-container-lowest rounded-xl flex items-center justify-center overflow-hidden border border-outline-variant/10">
+<div class="absolute inset-0 opacity-20 ticket-pattern"></div>
+<span class="material-symbols-outlined text-4xl text-primary/50" data-icon="confirmation_number" style="font-variation-settings: 'FILL' 1;">confirmation_number</span>
+</div>
+</section>
+<!-- Featured Prize Card -->
+<section class="relative group">
+<div class="relative bg-surface-container rounded-lg overflow-hidden border border-outline-variant/10 shadow-2xl">
+<!-- Image Container -->
+<div class="h-[420px] relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="professional fujifilm x-t5 camera with premium lens on a dark textured concrete surface with warm cinematic backlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAon1U-EmvEr3-rdDLbSgyvDaFT6bxg5J8V0xypJQ_0puh7pXHDXBOUVqhxbF3TvS0N7GGVjXWd1eFZFy-VIGlqz6aPUPj1kvXYPyVaQojgMydnt5LnWbpSi2k7zp-fJLHreMKmD8KOueRU2uHL0Hkmy0eblCx3xmUuWv3aYxG4gBG0nKhK3dB48f4wJ5w84JgrGaA5CRXhTM9I0TLlUY3Zq6OtxL1MYgf1nTt7VRf2cgAlp05ZWPCb7Fd5qpPzRp7juaZC-7Vpbw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+<!-- Countdown Overlay -->
+<div class="absolute top-4 left-4 bg-background/80 backdrop-blur-md px-4 py-2 rounded-full border border-outline-variant/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="timer">timer</span>
+<span class="text-xs font-headline font-bold tracking-tight">Ends in: <span class="text-primary">12d 05h 43m</span></span>
+</div>
+</div>
+<!-- Prize Details -->
+<div class="p-8 -mt-20 relative z-10 space-y-4">
+<div class="space-y-1">
+<p class="text-primary font-label text-xs uppercase tracking-[0.2em] font-bold">Current Monthly Raffle</p>
+<h2 class="text-3xl font-headline font-extrabold leading-tight text-on-surface">Fujifilm X-T5 Creator Kit</h2>
+<p class="text-on-surface-variant text-sm leading-relaxed max-w-xs">Elevate your production with the ultimate APS-C powerhouse, including the 18-55mm lens and a pro rigging cage.</p>
+</div>
+<button class="w-full cinematic-gradient py-4 rounded-md font-headline font-extrabold text-on-primary text-lg tracking-tight active:scale-[0.98] transition-all shadow-[0_10px_30px_rgba(255,208,94,0.2)]">
+                        Enter Now
+                    </button>
+<p class="text-center text-[10px] text-on-surface-variant/60 uppercase tracking-widest">1 ticket = 1 entry per month</p>
+</div>
+</div>
+</section>
+<!-- Past Winners -->
+<section class="space-y-6">
+<h3 class="text-xl font-headline font-bold flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="history">history</span>
+                Past Winners
+            </h3>
+<div class="grid gap-4">
+<!-- Winner Row 1 -->
+<div class="flex items-center gap-4 bg-surface-container-low p-4 rounded-lg hover:bg-surface-container transition-colors">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-outline-variant/30 flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="portrait of a bearded digital artist smiling in a home office with colorful lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM7VvUjw8GcNJMfou2A0Dl575LUUXkyARX2BkWZGUYQWGW06Wr5mDZh-qWHchbW2Z7WN_6DQNxn6rLyuw-H1j6FFBp4Fk599xqKFi-wJ_GtRKCE0VmIbnhnvNEC2Vb2IEc3Ao8TVSTR0diFUF-S2wcFLI114hHSKjB5tbsoID_TBUKH_f3MPXOuRdu2cQLzVraVczmcn-AtPvucK6__2MA77WnuymfOtva1ySVMMQRsBPPbTTdOxXJL_K5TB2W9tvsc0k8iCEM8HI"/>
+</div>
+<div class="flex-1">
+<p class="text-sm font-headline font-bold">Marcus Chen</p>
+<p class="text-xs text-on-surface-variant">Won DJI Mic 2 Wireless System</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Oct '23</p>
+</div>
+</div>
+<!-- Winner Row 2 -->
+<div class="flex items-center gap-4 bg-surface-container-low p-4 rounded-lg hover:bg-surface-container transition-colors">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-outline-variant/30 flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="profile photo of a female filmmaker looking confidently towards the camera in a modern loft space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWR3JkIg_TKBMyijzomMY3DXzCvW14auXm5peHqNtIzZ3tX8TiN_o8viL0k9dsrG2j2bPNXrWSjNRNWGM_bYaMTB0ETnbFG-pEZY1wCyPXD-RFevCCd5NlgNs3nPmgEYAnfQw1uYd-48ZHeT5f2COqgkMy9m3-PEPb8VxNowrP1IhakxgKcO_uLT4PvenJPUu438SE-pkSJvkPgavrskx4AlxqCsPwb7YBGMTaoabUr7nyYXQrRayaKffdTuAPVHPF2SrcRc4rn3Q"/>
+</div>
+<div class="flex-1">
+<p class="text-sm font-headline font-bold">Elena Rodriguez</p>
+<p class="text-xs text-on-surface-variant">Won Blackmagic Design Atem Mini</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Sep '23</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Rules & Eligibility -->
+<footer class="pt-8 pb-4 space-y-6 text-center border-t border-outline-variant/10">
+<div class="flex justify-center gap-8 text-xs font-medium text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Official Rules</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Entry</a>
+</div>
+<p class="text-[10px] text-on-surface-variant/40 leading-relaxed max-w-xs mx-auto">
+                No purchase necessary. Open only to legal residents of the 50 US states &amp; DC. Ends Dec 31, 2023. See full rules for eligibility and odds.
+            </p>
+</footer>
+</main>
+<!-- Navigation Shell Logic Check: Active "local_activity" for Raffles -->
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-3 w-full pb-safe bg-[#131313]/70 backdrop-blur-xl border-t border-[#353534]/15">
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="video_library">video_library</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#ffd05e] text-[#131313] rounded-full p-3 shadow-[0_0_15px_rgba(255,208,94,0.3)] active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="local_activity" style="font-variation-settings: 'FILL' 1;">local_activity</span>
+<span class="hidden">Raffles</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Profile</span>
+</a>
+</nav>
+</body></html>
+
+<!-- Course View -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#775a00",
+              "secondary-fixed": "#e4e2e1",
+              "surface-tint": "#f3bf32",
+              "on-primary-fixed-variant": "#5a4300",
+              "surface-container-high": "#2a2a2a",
+              "error-container": "#93000a",
+              "inverse-surface": "#e5e2e1",
+              "background": "#131313",
+              "on-tertiary-fixed-variant": "#004b71",
+              "inverse-on-surface": "#313030",
+              "on-secondary-fixed-variant": "#474746",
+              "on-error": "#690005",
+              "secondary-container": "#474746",
+              "on-error-container": "#ffdad6",
+              "surface-container-low": "#1c1b1b",
+              "on-secondary-fixed": "#1b1c1c",
+              "on-secondary": "#303030",
+              "error": "#ffb4ab",
+              "outline": "#9b8f7a",
+              "on-tertiary-container": "#004f76",
+              "primary": "#ffd05e",
+              "tertiary-fixed-dim": "#8fcdff",
+              "on-surface-variant": "#d2c5ad",
+              "tertiary-fixed": "#cbe6ff",
+              "surface-bright": "#3a3939",
+              "on-primary-fixed": "#251a00",
+              "on-tertiary-fixed": "#001e30",
+              "on-surface": "#e5e2e1",
+              "on-primary": "#3f2e00",
+              "secondary": "#c8c6c5",
+              "surface-container": "#201f1f",
+              "on-tertiary": "#003450",
+              "secondary-fixed-dim": "#c8c6c5",
+              "on-secondary-container": "#b6b5b4",
+              "surface-variant": "#353534",
+              "on-background": "#e5e2e1",
+              "primary-fixed": "#ffdf99",
+              "on-primary-container": "#5e4700",
+              "primary-fixed-dim": "#f3bf32",
+              "outline-variant": "#4e4634",
+              "surface-container-lowest": "#0e0e0e",
+              "surface-container-highest": "#353534",
+              "primary-container": "#e6b325",
+              "tertiary-container": "#70c2ff",
+              "surface-dim": "#131313",
+              "surface": "#131313",
+              "tertiary": "#b2dbff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .cinematic-gradient {
+            background: linear-gradient(180deg, rgba(19, 19, 19, 0) 0%, rgba(19, 19, 19, 0.8) 60%, rgba(19, 19, 19, 1) 100%);
+        }
+        .cta-glow {
+            background: linear-gradient(135deg, #ffd05e 0%, #e6b325 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 w-full z-50 bg-[#131313]/70 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full shadow-[0_20px_40px_rgba(229,226,225,0.05)]">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline/20">
+<img alt="user profile picture" class="w-full h-full object-cover" data-alt="close-up portrait of a creative professional in a dimly lit studio setting with warm accent lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk7CLlbPdsrBjngNGyAFP-fntaYenWNxuXt2Fj2eU8noeuuRSf4T6X2U14nZmN4eAA7vWD_bx6dUIYI7hnwHMkrinGsD4DOO-6-jFNbm9dshNvyQTHOP_Ko7Cpsw3Qo1lwtGbb2NvoI6EsoFafivIJJ0tqOFCae8j-z1b8ITp104G6t1sLI66o959IOAHW-NoWAAOnIYlzX41XnErxyYsFpzB6YP9rgZANvCucmhi_1Fhed1HWho2YcDv9VumgTzqaRRmOYvW2lY4"/>
+</div>
+<span class="text-[#ffd05e] font-manrope font-extrabold tracking-tighter text-xl">450audiovisual</span>
+</div>
+<button class="text-[#ffd05e] hover:bg-[#353534] transition-colors p-2 rounded-full active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<main class="pb-32 pt-0">
+<!-- Hero Section -->
+<section class="relative h-[751px] w-full overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Course Hero" class="w-full h-full object-cover grayscale-[20%] brightness-75" data-alt="Cinematic wide shot of a professional colorist working at a DaVinci Resolve console in a dark high-end post-production suite" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfTOctK0rmBtWy7ktGnMPevCgZeOAGZZ9U9CRE_oHAGbGmscHg3QIGTusOiDr7I3BLphp7dlDfwtkBYU8nQ00kFNis2lLHxm7Gw1GZvbni3jzo60SsT68GIz-d1rEKARpme5Mv5wlC54Fq234CGhhdMm6N7dI5u2nWevloLj2TpNt0boKUSVQJpBl5Zcc0EpMSPY3b2hUoJdfxObzTwAHS21Lm4aBrYYHjc1TiBnx4raib8mSR9a2EYx33bDGtlWTetMNTYoqaBqc"/>
+<div class="absolute inset-0 cinematic-gradient"></div>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-8 z-10 space-y-6">
+<div class="space-y-2">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-container/20 text-primary text-xs font-label uppercase tracking-widest border border-primary/20">Advanced Series</span>
+<h1 class="text-4xl md:text-6xl font-headline font-extrabold text-white tracking-tighter leading-tight">Advanced Color Grading</h1>
+<div class="flex items-center gap-3 mt-4">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest border border-outline/30">
+<img alt="Alex Rivers" class="rounded-full" data-alt="Headshot of a man with focused expression, expert filmmaker aesthetic, cinematic low-key lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX1NmTH6K3MA-1Bd0j27cxa6b_f73AuhjnULscIKQYhFOIUicFDbRsnBi7MNtIqfQ3ALJb73PSFUrjsHE3bohs7VibKO9yTt84kVInf_6koxL752D5kNslBWrnTnH9wjTysJigmS3RBLFaoxMW3zQpS5YvBrlrdxoUP3wVUrcpqxr0cVQ3JZDtfKVGgLHtM2JuIsupl5LORl4Is7oshS9pF02qrCu6l1JLtSwkyNMW0dFHGWyZqFSiDFa4nQkHDoNkLJtxGz_HfVk"/>
+</div>
+<p class="font-label text-on-surface-variant tracking-wide">Alex Rivers</p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<button class="cta-glow text-on-primary font-headline font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,208,94,0.3)] active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                        Start Course
+                    </button>
+<div class="w-full bg-surface-container-highest/40 h-1.5 rounded-full overflow-hidden backdrop-blur-sm">
+<div class="bg-primary h-full w-[35%] shadow-[0_0_10px_rgba(255,208,94,0.5)]"></div>
+</div>
+<div class="flex justify-between items-center text-xs font-label text-on-surface-variant uppercase tracking-widest">
+<span>35% Completed</span>
+<span>4 of 12 Lessons</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Course Overview -->
+<section class="px-8 mt-12 space-y-8">
+<div class="space-y-4">
+<h2 class="text-2xl font-headline font-bold text-primary">The Visionary’s Workflow</h2>
+<p class="text-on-surface/80 leading-relaxed max-w-2xl font-body">
+                    Master the art of visual storytelling through color. We don't just teach the tools; we explore the psychological impact of palettes, the physics of light in digital spaces, and the professional auteur's approach to the grading suite.
+                </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-container-low p-6 rounded-lg space-y-4">
+<h3 class="font-headline font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-container" data-icon="auto_awesome">auto_awesome</span>
+                        What you will learn
+                    </h3>
+<ul class="space-y-3">
+<li class="flex items-start gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-sm mt-0.5" data-icon="check_circle">check_circle</span>
+                            Complex secondary isolation and skin tone preservation.
+                        </li>
+<li class="flex items-start gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-sm mt-0.5" data-icon="check_circle">check_circle</span>
+                            Building a cohesive filmic look from scratch using LOG.
+                        </li>
+<li class="flex items-start gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-sm mt-0.5" data-icon="check_circle">check_circle</span>
+                            Advanced node-tree organization for feature-length projects.
+                        </li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Lesson List -->
+<section class="px-8 mt-16 space-y-6">
+<div class="flex justify-between items-end">
+<h2 class="text-2xl font-headline font-bold text-white tracking-tight">Curriculum</h2>
+<span class="text-on-surface-variant text-sm font-label uppercase tracking-widest">12h 45m Total</span>
+</div>
+<div class="space-y-4">
+<!-- Lesson 1 (Completed) -->
+<div class="bg-surface-container hover:bg-surface-container-high transition-colors p-4 rounded-lg flex items-center gap-4 group cursor-pointer">
+<div class="relative w-24 h-16 flex-shrink-0 rounded-md overflow-hidden">
+<img alt="Lesson 1" class="w-full h-full object-cover opacity-60" data-alt="Close up of a film camera lens with colorful light flares hitting the glass surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1vBgT3MS-atbvPSL-0d0v3riTd7PRaBBonClkfrR_61DoHewxZSzBVMV8cSucqra3GMe2XbM3Lsq7wTpapcc9r83RdW76S8YIUqFROd0G-865jS8_EH00dWG-d3LW4SsTKQkra34a0FCX8WZqDCT6FZhQ585buwwVr5KDufnt5HEM0iCMUd4QO5fK-Ql68kOl9MK9quNHjmt17l9vJGrWMAQURbHSDsScINCMcUWdA1Jcc2_Ygz8nnC-jReMffKrCKzAocuhmnrQ"/>
+<div class="absolute inset-0 flex items-center justify-center bg-background/40">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<div class="flex-grow">
+<h4 class="font-headline font-bold text-on-surface-variant line-through text-sm">Lesson 1: Intro to DaVinci</h4>
+<p class="text-xs font-label text-on-surface/40 mt-1 uppercase tracking-wider">12 min • Finished</p>
+</div>
+<span class="material-symbols-outlined text-on-surface/20" data-icon="more_vert">more_vert</span>
+</div>
+<!-- Lesson 2 (Active/Current) -->
+<div class="bg-surface-container-highest border border-primary/20 p-4 rounded-lg flex items-center gap-4 group cursor-pointer">
+<div class="relative w-24 h-16 flex-shrink-0 rounded-md overflow-hidden">
+<img alt="Lesson 2" class="w-full h-full object-cover" data-alt="Split screen showing a cinematic scene before and after professional color grading, dramatic contrast" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPuvFFv_WNP0OkySG1UxqA3kpc9g9cEI44RM3FGBUOhbSs2eCe2nm-IDL1bGj9VfFm0ZJ3oJ6hbtnyI2ZAqQVipMxJ4go8IKRnuPYPoi0RxWrOYX1pvLLpcZ2Oi3sJ_ifM9LKUkd4QRc5aXoksUyOsn8HYi7o0LX4A8H1Hg6hD8w3WHmYNuJPPHX_wQsEAow1sh_6pkcNiF6LBxepqta8KiuUnYTvXvO0BG_tQC-j2xy195_QPEYUuUFKl2ysSDNQS9TykmOS5RO0"/>
+<div class="absolute inset-0 flex items-center justify-center bg-primary/20">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+</div>
+<div class="flex-grow">
+<h4 class="font-headline font-bold text-primary text-sm">Lesson 2: Color Space Transform</h4>
+<p class="text-xs font-label text-primary/70 mt-1 uppercase tracking-wider">24 min • Resume</p>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="equalizer">equalizer</span>
+</div>
+<!-- Lesson 3 (Pro Only) -->
+<div class="bg-surface-container opacity-90 hover:bg-surface-container-high transition-colors p-4 rounded-lg flex items-center gap-4 group cursor-pointer">
+<div class="relative w-24 h-16 flex-shrink-0 rounded-md overflow-hidden bg-surface-container-lowest">
+<img alt="Lesson 3" class="w-full h-full object-cover grayscale opacity-30" data-alt="A professional video editor's dual monitor setup in a dark room with neon ambient light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsfaPdxb3GN_WS90xMhgpn7HgA8cZ4JCrQ1ms7zectFXqdzBJpULLAvtRhbmMOVEawlucS4c_Bwu5DBvR1NGS2e4LNO7klKXYjEDGDDf8XEUZHTvGjEJWBBjm2zwLhcabt7R-qIQFCXkiY_ocGs1UiRdqmBBFRqkv26VIwqle77CKS6kCNFEmKQr-wLkLFTsEH-Dkym8dUZELTRyh14RVKJX58oU2aVLZwyAz13bLr45ojg9Mzauxq08uSWskYJFRXfXNlZ6_Dc6g"/>
+<div class="absolute inset-0 flex items-center justify-center bg-background/60">
+<span class="material-symbols-outlined text-on-surface/40" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+</div>
+<div class="flex-grow">
+<h4 class="font-headline font-bold text-on-surface/80 text-sm">Lesson 3: Advanced Node Logic</h4>
+<div class="flex items-center gap-2 mt-1">
+<p class="text-xs font-label text-on-surface/40 uppercase tracking-wider">18 min</p>
+<span class="px-1.5 py-0.5 rounded-sm bg-primary/10 text-[10px] text-primary border border-primary/20">PRO</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface/20" data-icon="lock">lock</span>
+</div>
+</div>
+</section>
+<!-- Meet the Instructor -->
+<section class="px-8 mt-16 mb-12">
+<div class="bg-surface-container-low rounded-lg p-8 relative overflow-hidden border border-outline-variant/10">
+<div class="flex flex-col md:flex-row items-center gap-8 relative z-10">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-surface-container shadow-2xl flex-shrink-0">
+<img alt="Alex Rivers Profile" class="w-full h-full object-cover" data-alt="Portrait of a male filmmaker with artistic lighting, looking directly into camera with confidence and experience" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGxG-6jcUHXk4pburfxxhApSPGxg_Nd3SdU6ask6M_9X_NTHZnu6Fgzk5GkuSVPBHt1RRnX-YSzO_Rq4SPEI0TTXGySjCd3iEzhzvkoAZ31ivu7Hh33WSyAge0mKBYaB3_0tw8ofb_7HaqLWjaB-AW2iWrheduSdbEq2mfYtNGxOpIf7tufE_cbtRocQvU9kVUrXmdCafTA1iOSBNElxBlYxy5LZIFxmq9-qy7JalDE6Z87h5itLhI1iB2fhZmaBpZ9Uo-mrgXp9I"/>
+</div>
+<div class="space-y-4 text-center md:text-left">
+<div>
+<h3 class="text-2xl font-headline font-extrabold text-white">Alex Rivers</h3>
+<p class="text-primary font-label text-xs uppercase tracking-[0.2em] font-bold">Director of Photography</p>
+</div>
+<p class="text-on-surface-variant text-sm leading-relaxed font-body">
+                            Alex has graded over 20 feature films and hundreds of high-end commercials. Known for his "filmic atmospheric" style, he teaches the technical grit and creative soul of color.
+                        </p>
+<div class="flex justify-center md:justify-start gap-4 pt-2">
+<span class="material-symbols-outlined text-on-surface/40 hover:text-primary transition-colors cursor-pointer" data-icon="movie">movie</span>
+<span class="material-symbols-outlined text-on-surface/40 hover:text-primary transition-colors cursor-pointer" data-icon="public">public</span>
+<span class="material-symbols-outlined text-on-surface/40 hover:text-primary transition-colors cursor-pointer" data-icon="verified">verified</span>
+</div>
+</div>
+</div>
+<!-- Decorative element -->
+<div class="absolute -right-12 -bottom-12 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 w-full z-50 bg-[#131313]/70 backdrop-blur-xl flex justify-around items-center px-4 py-3 w-full pb-safe border-t border-[#353534]/15">
+<button class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-[#ffd05e] text-[#131313] rounded-full p-3 shadow-[0_0_15px_rgba(255,208,94,0.3)] active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="video_library" style="font-variation-settings: 'FILL' 1;">video_library</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="local_activity">local_activity</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Events</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Profile</span>
+</button>
+</nav>
+</body></html>
+
+<!-- Lesson View -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>450audiovisual - The Art of Natural Lighting</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .video-gradient-overlay {
+            background: linear-gradient(0deg, rgba(19,19,19,0.9) 0%, rgba(19,19,19,0) 50%, rgba(19,19,19,0.4) 100%);
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #131313;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #353534;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "inverse-primary": "#775a00",
+                "secondary-fixed": "#e4e2e1",
+                "surface-tint": "#f3bf32",
+                "on-primary-fixed-variant": "#5a4300",
+                "surface-container-high": "#2a2a2a",
+                "error-container": "#93000a",
+                "inverse-surface": "#e5e2e1",
+                "background": "#131313",
+                "on-tertiary-fixed-variant": "#004b71",
+                "inverse-on-surface": "#313030",
+                "on-secondary-fixed-variant": "#474746",
+                "on-error": "#690005",
+                "secondary-container": "#474746",
+                "on-error-container": "#ffdad6",
+                "surface-container-low": "#1c1b1b",
+                "on-secondary-fixed": "#1b1c1c",
+                "on-secondary": "#303030",
+                "error": "#ffb4ab",
+                "outline": "#9b8f7a",
+                "on-tertiary-container": "#004f76",
+                "primary": "#ffd05e",
+                "tertiary-fixed-dim": "#8fcdff",
+                "on-surface-variant": "#d2c5ad",
+                "tertiary-fixed": "#cbe6ff",
+                "surface-bright": "#3a3939",
+                "on-primary-fixed": "#251a00",
+                "on-tertiary-fixed": "#001e30",
+                "on-surface": "#e5e2e1",
+                "on-primary": "#3f2e00",
+                "secondary": "#c8c6c5",
+                "surface-container": "#201f1f",
+                "on-tertiary": "#003450",
+                "secondary-fixed-dim": "#c8c6c5",
+                "on-secondary-container": "#b6b5b4",
+                "surface-variant": "#353534",
+                "on-background": "#e5e2e1",
+                "primary-fixed": "#ffdf99",
+                "on-primary-container": "#5e4700",
+                "primary-fixed-dim": "#f3bf32",
+                "outline-variant": "#4e4634",
+                "surface-container-lowest": "#0e0e0e",
+                "surface-container-highest": "#353534",
+                "primary-container": "#e6b325",
+                "tertiary-container": "#70c2ff",
+                "surface-dim": "#131313",
+                "surface": "#131313",
+                "tertiary": "#b2dbff"
+              },
+              fontFamily: {
+                "headline": ["Manrope"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#131313]/70 backdrop-blur-xl shadow-[0_20px_40px_rgba(229,226,225,0.05)]">
+<div class="flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a professional filmmaker in a dark studio setting with warm amber rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSxihGFhPW9UoOItxIvTHo3kuwvGfdgNdNDW7TdYACQgXPZt6X7OVnM-ge3sxVSvTJ3JHHTH9pa-f082u7VYN7ZAUqyp_kBmID4CQc3i6R8Upx2ciY-VX989EoTbIkFVNRi8CJgIgWxAnksefwyFrrq03DDF5SxTINN-eINquWalvV1Rq3uNWRekeBOYNjSW1EoiauhZ77eylxobRa9rm6CYA3tRKdnFsuYWvBLso0PkjBpSiQffKIVaYs_-H3a96URAupyLTGeA4"/>
+</div>
+<h1 class="text-[#ffd05e] font-manrope font-extrabold tracking-tighter text-xl">450audiovisual</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#ffd05e] active:scale-95 transition-transform cursor-pointer" data-icon="search">search</span>
+</div>
+</div>
+</header>
+<main class="pt-16 pb-24 md:pb-0">
+<!-- Immersive Video Player Section -->
+<section class="relative w-full aspect-video bg-black group">
+<img alt="Video Placeholder" class="w-full h-full object-cover opacity-80" data-alt="cinematic shot of a golden hour landscape being filmed through a professional camera lens with beautiful bokeh" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDLN2JOdyoa4n9-406IU-idM5VKdCbBYuD3_lYMkCgktD8vbA-IkpwUEIr5qu7KXg_C45mZSg6C_N4RPF0d-l8xRfe5r5-2EXjPOnUxEhcqw6RmfV5PJOZV_UdwEnbejxK46LkDyQ488p3vjozYre7fU0mB4u31PZy5jQ4FyGopW3-IpGga1olKUdVxeeuQDnJ1OKvpd2vr56A3X0c0mZwqp3SVTAHFVl7xr_Tyd2QOvvVmd7xfzj_X1Bp0z_QJD6zqXKAy_AJyKo"/>
+<!-- Video UI Overlay -->
+<div class="absolute inset-0 video-gradient-overlay flex flex-col justify-between p-4 transition-opacity duration-300">
+<div class="flex justify-end">
+<button class="bg-surface-container-highest/40 backdrop-blur-md p-2 rounded-lg text-white">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+<div class="w-full space-y-4">
+<!-- Custom Scrubber -->
+<div class="relative w-full h-1.5 bg-surface-container-highest/50 rounded-full cursor-pointer">
+<div class="absolute top-0 left-0 h-full w-2/3 bg-primary rounded-full shadow-[0_0_8px_rgba(255,208,94,0.6)]"></div>
+<div class="absolute top-1/2 left-2/3 -translate-y-1/2 -translate-x-1/2 w-4 h-4 bg-primary rounded-full shadow-lg border-2 border-surface-container"></div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-6">
+<button class="text-white hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-3xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<div class="flex items-center gap-4 text-xs font-medium tracking-widest text-on-surface/80 uppercase">
+<span>12:45</span>
+<span class="opacity-40">/</span>
+<span>24:10</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-white hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="volume_up">volume_up</span>
+</button>
+<button class="text-white hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="fullscreen">fullscreen</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Navigation Buttons -->
+<div class="flex items-center justify-between px-6 py-4 bg-surface-container-low">
+<button class="flex items-center gap-2 text-sm font-medium text-on-surface/60 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_back_ios">arrow_back_ios</span>
+                Previous
+            </button>
+<button class="flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-container transition-colors">
+                Next Lesson
+                <span class="material-symbols-outlined" data-icon="arrow_forward_ios">arrow_forward_ios</span>
+</button>
+</div>
+<!-- Lesson Info -->
+<div class="px-6 py-8 space-y-6">
+<div class="space-y-2">
+<div class="flex items-center gap-2 text-primary font-manrope font-bold text-xs uppercase tracking-widest">
+<span class="material-symbols-outlined text-sm" data-icon="movie">movie</span>
+                    Cinematography Essentials
+                </div>
+<h2 class="text-3xl font-manrope font-extrabold tracking-tight text-white leading-tight">The Art of Natural Lighting</h2>
+</div>
+<div class="flex items-center justify-between p-4 rounded-xl bg-surface-container-low border border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-highest text-primary">
+<span class="material-symbols-outlined" data-icon="task_alt">task_alt</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white leading-none">Completed?</p>
+<p class="text-xs text-on-surface/60 mt-1">Mark this lesson as finished</p>
+</div>
+</div>
+<!-- Toggle Switch -->
+<div class="w-12 h-6 bg-surface-container-highest rounded-full p-1 relative cursor-pointer group">
+<div class="w-4 h-4 bg-on-surface/40 rounded-full transition-all group-hover:bg-primary"></div>
+</div>
+</div>
+<!-- Tabs/Sections -->
+<div class="space-y-8">
+<!-- Description -->
+<div class="space-y-4">
+<h3 class="text-lg font-manrope font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="description">description</span>
+                        Lesson Overview
+                    </h3>
+<p class="text-on-surface/80 leading-relaxed text-sm">
+                        In this session, we dive deep into the philosophy of "The Director’s Lens." You will learn how to harness ambient light to create atmospheric depth without relying on artificial sources. We cover diffusion techniques, the importance of the Golden Hour, and managing high-contrast environments.
+                    </p>
+</div>
+<!-- Notes Field -->
+<div class="space-y-4">
+<h3 class="text-lg font-manrope font-bold text-white">Private Notes</h3>
+<div class="relative">
+<textarea class="w-full bg-surface-container-lowest border-none rounded-xl p-4 text-sm text-on-surface placeholder:text-on-surface/30 focus:ring-2 focus:ring-primary/20 min-h-[120px] transition-all" placeholder="Add a private note for your future self..."></textarea>
+<button class="absolute bottom-4 right-4 bg-primary text-on-primary font-bold px-4 py-2 rounded-lg text-xs hover:bg-primary-container transition-colors">
+                            Save Note
+                        </button>
+</div>
+</div>
+<!-- Related Lessons (Horizontal Carousel) -->
+<div class="space-y-4 pb-12">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-manrope font-bold text-white">More in this Module</h3>
+<span class="text-xs text-primary font-bold uppercase tracking-widest">3 of 8 Lessons</span>
+</div>
+<div class="flex gap-4 overflow-x-auto snap-x no-scrollbar pb-4 -mx-6 px-6">
+<!-- Card 1 -->
+<div class="flex-none w-64 snap-start group">
+<div class="relative aspect-video rounded-xl overflow-hidden bg-surface-container">
+<img alt="Lesson 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60" data-alt="professional mirrorless camera on a tripod in a dark studio with blue and purple neon lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRYsboKJJSehly7Ywd4XWrxWuq-JhAFg4L3dqCMrIXkFszQiXm1KofOM6uqQWYDn1Aix3frbWIAKjrgKtO_D9FUG19OfQ5hEmlPZkB39c1LGHTUw59s27q9vk58kBUByVp8ZqV3qdeT_aXgYCY0xopIYu6T3D-Jo2FfiFR2IxKi0mj_s1rYXNtIpBBx8cjAxgEsySlXL49GMkcp3IcMQxzZulJj7NRj9B6iWEvJGNMQy0jn0vM60Wos7GFML_2NrMhpcvvGCnGptg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+<span class="text-[10px] bg-primary text-on-primary px-2 py-0.5 rounded-full font-bold">12:05</span>
+<span class="material-symbols-outlined text-white/50 text-xl" data-icon="play_circle">play_circle</span>
+</div>
+</div>
+<h4 class="mt-3 text-sm font-bold text-white group-hover:text-primary transition-colors line-clamp-1">Camera Positioning Basics</h4>
+</div>
+<!-- Card 2 -->
+<div class="flex-none w-64 snap-start group">
+<div class="relative aspect-video rounded-xl overflow-hidden bg-surface-container">
+<img alt="Lesson 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60" data-alt="vintage film clapboard on a wooden table with soft warm light coming from the side" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrtxY5w7kBwHSEoU4UXKwHBYP75cCNmo5MOn_vFCDuv9qVrTOgOylZRSZSkObTryK7v9Y2JVYB9lDrODio3lpyRmdIMSclc9tRY3kzDfSTwYj2Q52c9kBzqoLeGA9xEKgcICXC2rG3OoOsUs_tP-mdPMWfS6rpqIivoX6eX-1gR6xx3CUqpyKOdqlL1fcz75oAMaUZBiAct5GeGkPsEDsXQ-vdUgS5HkuNpv3qRpY2Q7qJsyX6fDzaSkgJoIQd6GkqYA_pKGXyvgU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+<span class="text-[10px] bg-surface-container-highest text-on-surface px-2 py-0.5 rounded-full font-bold">08:45</span>
+<span class="material-symbols-outlined text-white/50 text-xl" data-icon="play_circle">play_circle</span>
+</div>
+</div>
+<h4 class="mt-3 text-sm font-bold text-white group-hover:text-primary transition-colors line-clamp-1">Understanding ISO &amp; Noise</h4>
+</div>
+<!-- Card 3 -->
+<div class="flex-none w-64 snap-start group">
+<div class="relative aspect-video rounded-xl overflow-hidden bg-surface-container">
+<img alt="Lesson 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60" data-alt="a film editor sitting in front of three large monitors in a dark room with ambient backlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3DCrjRAX377FG_gE-TvB-0G7fMcIfs39DJwiygYSvfOGCPtiNnoLag5VdKNQIX-qp20-rD2cAso6NmflzDcQSL5z7enO_RRK6ObpTdLwIRkZnyZaWgrX7oQ2j7dRyeHOnExxFpEJzwM7Ceflk4OWoaqW_q3eXYMv5UA8_sHYezLi4eWt2WsaNal_TE3j3Q4bnei3WuK-wWjitFOQP2nJPgAEkv-olHRjyZHLGMYRtbLlTKYDdR4NgYMYGvgR4ZtrDCut_qgoZ-zo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+<span class="text-[10px] bg-surface-container-highest text-on-surface px-2 py-0.5 rounded-full font-bold">15:30</span>
+<span class="material-symbols-outlined text-white/50 text-xl" data-icon="play_circle">play_circle</span>
+</div>
+</div>
+<h4 class="mt-3 text-sm font-bold text-white group-hover:text-primary transition-colors line-clamp-1">Color Grading for Emotion</h4>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-[#131313]/70 backdrop-blur-xl border-t border-[#353534]/15">
+<div class="flex justify-around items-center px-4 py-3 w-full pb-safe">
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#ffd05e] text-[#131313] rounded-full p-3 shadow-[0_0_15px_rgba(255,208,94,0.3)] active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="video_library" style="font-variation-settings: 'FILL' 1;">video_library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="local_activity">local_activity</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+</div>
+</nav>
+<!-- Side Drawer Trigger (Hidden for mobile flow, but structurally provided) -->
+<div class="hidden" id="drawer">
+<div class="fixed inset-y-0 left-0 z-[60] flex flex-col p-6 h-full w-[280px] rounded-r-lg bg-[#131313] shadow-[40px_0_40px_rgba(0,0,0,0.5)]">
+<div class="flex flex-col mb-8">
+<div class="w-16 h-16 rounded-full bg-surface-container overflow-hidden mb-4">
+<img alt="User Profile" data-alt="professional male profile photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl4jo4UEOnocLrUj3TGVESKQMRb6gyhvGyf9haunVmmv-dW2oBlxg_T1qB5F-wa2l-Febf7rwk7CAu6z-OA1ZDzxEm3hW9QcktfXmdgtBdctL6IG2OvprL9vIpfbgf4dSHeEkYdtrchRKk25DY5rXmkBEm4IymPX3O14E24_4vAKfL2fYQ1BD5UM0H5iqQeg91el-4xNmYmLPIOeiFDX16PYx9aspZOEVt37VpM2mAQ2s4GYeHqDSrkW5cAV9sk5OdcSxABmIMAp0"/>
+</div>
+<div class="font-manrope font-bold text-primary">Auteur Student</div>
+<div class="text-sm text-on-surface opacity-60">Pro Member</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-3 p-3 text-[#e5e2e1] opacity-80 font-manrope font-medium hover:bg-[#201f1f] hover:text-white rounded-lg transition-all cursor-pointer">
+<span class="material-symbols-outlined" data-icon="group_add">group_add</span>
+                    Referral Program
+                </div>
+<div class="flex items-center gap-3 p-3 text-[#e5e2e1] opacity-80 font-manrope font-medium hover:bg-[#201f1f] hover:text-white rounded-lg transition-all cursor-pointer">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+                    Billing
+                </div>
+</div>
+<div class="mt-auto text-[10px] text-on-surface opacity-40 uppercase tracking-widest">v1.0.4</div>
+</div>
+</div>
+</body></html>
+
+<!-- Course Library -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>450audiovisual - Course Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#775a00",
+              "secondary-fixed": "#e4e2e1",
+              "surface-tint": "#f3bf32",
+              "on-primary-fixed-variant": "#5a4300",
+              "surface-container-high": "#2a2a2a",
+              "error-container": "#93000a",
+              "inverse-surface": "#e5e2e1",
+              "background": "#131313",
+              "on-tertiary-fixed-variant": "#004b71",
+              "inverse-on-surface": "#313030",
+              "on-secondary-fixed-variant": "#474746",
+              "on-error": "#690005",
+              "secondary-container": "#474746",
+              "on-error-container": "#ffdad6",
+              "surface-container-low": "#1c1b1b",
+              "on-secondary-fixed": "#1b1c1c",
+              "on-secondary": "#303030",
+              "error": "#ffb4ab",
+              "outline": "#9b8f7a",
+              "on-tertiary-container": "#004f76",
+              "primary": "#ffd05e",
+              "tertiary-fixed-dim": "#8fcdff",
+              "on-surface-variant": "#d2c5ad",
+              "tertiary-fixed": "#cbe6ff",
+              "surface-bright": "#3a3939",
+              "on-primary-fixed": "#251a00",
+              "on-tertiary-fixed": "#001e30",
+              "on-surface": "#e5e2e1",
+              "on-primary": "#3f2e00",
+              "secondary": "#c8c6c5",
+              "surface-container": "#201f1f",
+              "on-tertiary": "#003450",
+              "secondary-fixed-dim": "#c8c6c5",
+              "on-secondary-container": "#b6b5b4",
+              "surface-variant": "#353534",
+              "on-background": "#e5e2e1",
+              "primary-fixed": "#ffdf99",
+              "on-primary-container": "#5e4700",
+              "primary-fixed-dim": "#f3bf32",
+              "outline-variant": "#4e4634",
+              "surface-container-lowest": "#0e0e0e",
+              "surface-container-highest": "#353534",
+              "primary-container": "#e6b325",
+              "tertiary-container": "#70c2ff",
+              "surface-dim": "#131313",
+              "surface": "#131313",
+              "tertiary": "#b2dbff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-panel {
+            background: rgba(19, 19, 19, 0.7);
+            backdrop-filter: blur(20px);
+        }
+        .text-shadow-sm { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body selection:bg-primary/30 min-h-screen pb-24 md:pb-0 md:pt-20">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 w-full z-50 bg-[#131313]/70 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full shadow-[0_20px_40px_rgba(229,226,225,0.05)]">
+<div class="flex items-center gap-4">
+<div class="h-8 w-8 rounded-full overflow-hidden bg-surface-container active:scale-95 transition-transform">
+<img class="h-full w-full object-cover" data-alt="professional male portrait with cinematic lighting and soft bokeh background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnZz-1JJPDnuc1DPZTgKXQ4wojjVqnH5ot3tK_Foe1OzApqK1lF4Y_gzS98zn5NLmbLSheXaGc8kLJqB2xFLqtUq-pCAPT4bCannuTzl2DfsyuU3uXY9_BIeeSzIuJd2RO4RlUggRYQe9InV0YB45uydG5oY6P0los2c3Dn8hQ7xPwedlSDpNNG_ml_atuNbEo6vtXb7VFAu-iEblrAV9fmdjxblehAuLe0Ejy4XCh2UaLCORShV_9OrKqMKzgSXytyStlquOio-U"/>
+</div>
+<h1 class="text-[#ffd05e] font-manrope font-extrabold tracking-tighter text-xl">450audiovisual</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-[#ffd05e] hover:bg-[#353534] transition-colors p-2 rounded-full active:scale-95 transition-transform">
+<span class="material-symbols-outlined">search</span>
+</button>
+<!-- Navigation links visible on desktop as per responsive pivot -->
+<nav class="hidden md:flex gap-8 ml-8">
+<a class="text-[#ffd05e] font-manrope font-bold text-sm tracking-tight transition-colors" href="#">Home</a>
+<a class="text-[#e5e2e1] font-manrope font-bold text-sm tracking-tight hover:text-[#ffd05e] transition-colors" href="#">Courses</a>
+<a class="text-[#e5e2e1] font-manrope font-bold text-sm tracking-tight hover:text-[#ffd05e] transition-colors" href="#">Events</a>
+<a class="text-[#e5e2e1] font-manrope font-bold text-sm tracking-tight hover:text-[#ffd05e] transition-colors" href="#">Community</a>
+</nav>
+</div>
+</header>
+<main class="w-full max-w-7xl mx-auto px-4 md:px-8 py-4 space-y-12">
+<!-- Search & Filter Bar -->
+<section class="pt-20 md:pt-8 space-y-6">
+<div class="relative max-w-2xl">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl py-4 pl-12 pr-4 text-on-surface focus:ring-2 focus:ring-primary/20 placeholder:text-outline-variant font-medium" placeholder="Search for your next skill..." type="text"/>
+</div>
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary text-sm font-bold whitespace-nowrap shadow-[0_0_15px_rgba(255,208,94,0.3)]">All</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-highest text-on-surface text-sm font-medium whitespace-nowrap hover:bg-surface-bright transition-colors border border-outline/10">Beginner</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-highest text-on-surface text-sm font-medium whitespace-nowrap hover:bg-surface-bright transition-colors border border-outline/10">Pro Only</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-highest text-on-surface text-sm font-medium whitespace-nowrap hover:bg-surface-bright transition-colors border border-outline/10">Lighting</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-highest text-on-surface text-sm font-medium whitespace-nowrap hover:bg-surface-bright transition-colors border border-outline/10">Editing</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-highest text-on-surface text-sm font-medium whitespace-nowrap hover:bg-surface-bright transition-colors border border-outline/10">Directing</button>
+</div>
+</section>
+<!-- Featured Course (Asymmetric Hero) -->
+<section class="relative rounded-xl overflow-hidden min-h-[450px] flex items-end group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="professional film cinematographer adjusting a high-end cinema camera on a dark studio set with dramatic orange and teal lighting" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAJ0J8l8TiKNoGnlNYXoED2cBaNMddQs714r88B3s7iUYymGmZeDUsAikfO8i98cLm3owsrwmZTWTt7EU9WdabC8aBQHSG3Ik8hPlMe9hefKcE7qyg3niFQq7s3q38gdjB2uzEylui1dtBHUoNAOKou5PAwps3x5YLqMx0Af2HlwR3RVekh0l70vaTFaa_35KvOGi9T4qjuxaFYM7Fzce2m8eY1_5ziIPBeuRWpSNwHGogVuI94Pa5wwK4bbqAUtMLW_t7_DyKddCc')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+<div class="relative p-8 md:p-12 w-full max-w-2xl space-y-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-primary/20 border border-primary/30 rounded-full text-primary text-xs font-bold tracking-widest uppercase">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">stars</span>
+                    Featured Course
+                </div>
+<h2 class="text-4xl md:text-5xl font-manrope font-extrabold tracking-tight text-white leading-tight">Mastering Cinematography: The Auteur's Eye</h2>
+<p class="text-on-surface-variant text-base md:text-lg max-w-lg leading-relaxed">Go beyond technical settings. Learn to manipulate light, shadow, and movement to tell stories that resonate on the big screen.</p>
+<div class="pt-4 flex flex-wrap gap-4">
+<button class="px-8 py-3 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-lg font-bold flex items-center gap-2 hover:shadow-[0_0_20px_rgba(255,208,94,0.4)] transition-all active:scale-95">
+<span class="material-symbols-outlined">play_arrow</span>
+                        Start Learning
+                    </button>
+<button class="px-8 py-3 bg-surface-container-highest/60 backdrop-blur-md text-white rounded-lg font-bold border border-outline/20 hover:bg-surface-container-highest transition-colors active:scale-95">
+                        Details
+                    </button>
+</div>
+</div>
+</section>
+<!-- New Releases (Bento Grid Layout) -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<h3 class="font-manrope text-2xl font-bold tracking-tight">New Releases</h3>
+<a class="text-primary font-bold text-sm hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Large Feature Card -->
+<div class="md:col-span-8 group cursor-pointer">
+<div class="relative aspect-[16/9] md:aspect-auto md:h-full rounded-xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="close up of professional video editing software timeline on dual monitor setup in a dark studio environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp6dUl1m_5hHu-65JwgxBAMTa-L5HwLyOGWS1WHm8dOfFbHka2HvqLdmKRfZjKACrYTtKTgbpJW9sD5zCtwHK8_F4oX3Rf7leEvmbGI_LX5hV5aNLyP0X5t2SlMncgf7RZgO9I7PwlGWcjuWhdMRSX21XVoFy1mtNUEPAwS8hf4IXcW9eFfXPFqCrrREtCI9KFyWvrYZ772Z2PeI65-eFqML7GVAB3Sw3eV6AR_hT93USK8alMF25Vzdf7_jHCYrmgSHuyCfuE64M"/>
+<div class="absolute top-4 left-4 bg-primary text-on-primary px-3 py-1 rounded-md text-xs font-black tracking-tighter">PRO</div>
+<div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+<div class="mb-2 h-1 w-full bg-white/20 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[65%]"></div>
+</div>
+<h4 class="text-xl font-bold text-white">Color Grading Workflows for DaVinci Resolve</h4>
+<p class="text-white/70 text-sm">Instructor: Julian Varas</p>
+</div>
+</div>
+</div>
+<!-- Smaller Stacking Cards -->
+<div class="md:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container rounded-xl overflow-hidden group cursor-pointer">
+<div class="relative h-40">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="vintage cinema lens with lens flare on a dark textured background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1DMhJGDTHcjLgolwDr9Akljuxa4EFaIIj-pylgRcSVMgN_QnloMGYnTzbjXkW933unz-9K9oMh46-t6pLcYn2xwSagWbGTaiJ9qojMURYLydICvH8JeJW1kuPdfI8UE4TcPh7x63j2O8B4h8RvqQribFcfsIXTVWuWXDGK_X-7v3tdvoSmtkam53Dn0F-DPrF8gRY4YBosOCFCXUjX53zdV7HMCVdCNz1VX7NRuQ0nhKeL-N7pICek9LiDDERb-zvjpvn28TOo4A"/>
+<div class="absolute top-4 left-4 bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-md text-xs font-black tracking-tighter uppercase">FREE</div>
+</div>
+<div class="p-4 space-y-1">
+<h4 class="font-bold text-on-surface truncate">Legacy Lenses: Finding the Character</h4>
+<p class="text-on-surface-variant text-xs">Elena Rossi</p>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl overflow-hidden group cursor-pointer">
+<div class="relative h-40">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="foley artist recording sound effects with a shotgun microphone and various props in a soundproof studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8TjdUoC4sf28d3m0u1KxJMLEmBriXGLzgtSm_-9oCzW1UPY3PK9APIM-hmrwwrfu1cI6FderpPCzqNdYpqjRM6H26XWaAR_YpftkylNa1zvgxehNjRoIb40xPzuRGwwvICt4412orQHpM8llgNvezMr-fT_ZNCFNvuT_qwz3NE3b1Lkr3W9PTERA1aFltZFeTviUKL660m6tLFhp9XT0ktBggrwOgOWfpHRVCr7rWaYqdOKvbDGIhZiuzGdHlKLC07TItSC8THac"/>
+<div class="absolute top-4 left-4 bg-primary text-on-primary px-3 py-1 rounded-md text-xs font-black tracking-tighter">PRO</div>
+</div>
+<div class="p-4 space-y-1">
+<h4 class="font-bold text-on-surface truncate">Sonic Landscapes: The Art of Foley</h4>
+<p class="text-on-surface-variant text-xs">Marcus Sterling</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Most Popular (Horizontal Scroll Style) -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<h3 class="font-manrope text-2xl font-bold tracking-tight">Most Popular</h3>
+<div class="flex gap-2">
+<button class="p-2 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface active:scale-95">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-2 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface active:scale-95">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex gap-6 overflow-x-auto no-scrollbar pb-4 -mx-4 px-4">
+<!-- Card 1 -->
+<div class="flex-shrink-0 w-72 bg-surface-container-low rounded-xl overflow-hidden group cursor-pointer hover:bg-surface-container transition-colors">
+<div class="relative h-44 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="professional grip equipment and lighting stands on a busy film production set during a night shoot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMM6Z6TAIBy2SnxcWS4GE3L0ZgCo_Bo8cYLxUsX7bwdzqmdjEru5xCZ-rkSn9yZuZhRXWkQV0QyBybyTgd45XQHH2pVqhMZC4ch-riUMVyatJonK3r65fW676bQWcdLQ-odJk-Sg66akfToT-BoYEZ2DF0q9E22-iPoEXio7wuKesCzhBDoA3Y1Zpp6tLVVPVbotrUx1llIp02LsRShJmjrURS-2NaXhUZY2Xp68iuXO4-NA-fWBbo616UEwtodW1zibJ3MxMAqP4"/>
+<div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-widest">14 Lessons</div>
+</div>
+<div class="p-5 space-y-3">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-on-surface leading-tight">Advanced Lighting for Commercial Shoots</h4>
+<span class="bg-primary text-on-primary text-[10px] font-black px-2 py-0.5 rounded ml-2">PRO</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-outline/20"></div>
+<p class="text-on-surface-variant text-xs">Sarah J. Miller</p>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="flex-shrink-0 w-72 bg-surface-container-low rounded-xl overflow-hidden group cursor-pointer hover:bg-surface-container transition-colors">
+<div class="relative h-44 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="director's chair and clapperboard on a wooden floor in a studio with soft overhead light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRCnk5OesjWi_Zb527I9gV5U3SCo1NUeo-YolIQukCK7tA9FPOUYwl5qTGG5Up287zkEPGO0dLeDmvm5aw_O5VxXEPNRmDcD-iq2p1Q6nEvpSoQYF1GT8sFrgqZEjdP4R_Djdu4F4Zl7do7NoEAzl7V8A1nUhhmWDti3-crMDgcKWYQY2zTWBn2xIKHz20zwsQUWdSucVjQKtGZLvCWqfSBk788g_sP0KQnXs_uWl-8_B2x_b8wcx-np0GK_fZfg49AJAsGNvDB6Y"/>
+<div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-widest">8 Lessons</div>
+</div>
+<div class="p-5 space-y-3">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-on-surface leading-tight">Directing Actors: The Psychology of Performance</h4>
+<span class="bg-tertiary-container text-on-tertiary-container text-[10px] font-black px-2 py-0.5 rounded ml-2 uppercase">FREE</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-outline/20"></div>
+<p class="text-on-surface-variant text-xs">David Thorne</p>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="flex-shrink-0 w-72 bg-surface-container-low rounded-xl overflow-hidden group cursor-pointer hover:bg-surface-container transition-colors">
+<div class="relative h-44 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="interior of a darkened movie theater with glowing screen showing a blurred landscape" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJYv0OWKFgUqUartYNhJDLbl8ioHvkIcHZQsNcpvCEUNlUfbKf_lK6ERQzCxhd9dQR_X4uUqML2Ek-QOQcQnw4IBiBRCIE2em6hhtfLj9jVjK4lf_NVYN6seMxHjtfMV-2uSaWictMfQVPRq4wqLxrcekB81NgnADzEzyLLSZ0THnsM6o0-GOsS1mDjdK5PEOAwVGUE6IZJ4oGHw9Rdm1GiqOMkmeIGHz4-YsoWGuRqlswZSO0Ua2273EL1xB0Ya2ZB_4kaHQGox4"/>
+<div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-widest">22 Lessons</div>
+</div>
+<div class="p-5 space-y-3">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-on-surface leading-tight">Documentary Storytelling: Finding the Truth</h4>
+<span class="bg-primary text-on-primary text-[10px] font-black px-2 py-0.5 rounded ml-2">PRO</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-outline/20"></div>
+<p class="text-on-surface-variant text-xs">Nina Chen</p>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="flex-shrink-0 w-72 bg-surface-container-low rounded-xl overflow-hidden group cursor-pointer hover:bg-surface-container transition-colors">
+<div class="relative h-44 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="professional recording studio with mixing console and studio monitors in a low-light acoustic treated room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyepDcw4xL1Y_6Xto8UihsKu1bW3P6ORTLeAkGkkxrrn-Y3MndSLtsRrL8mPRgns6Chh5vT9d-MNGUt5znoNuxiGQ6YSmNYTkYBJnH_YGwLsEqYeYwMcVlXGB1DcvVKo4GZ3gZxUapnspFT1die5mgOsP5KVCWg_eYrDHKlAqSsuKvsiXl0cMdHjfhNXaFDwfs4cn0jH4s0Rr6jFAbSunZ4gL1-vStdBAhB_3WYEJVATQO6gDzPnVF9k_ixaw9mDyBkdYxQmFiKg8"/>
+<div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-widest">10 Lessons</div>
+</div>
+<div class="p-5 space-y-3">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-on-surface leading-tight">Film Scoring: Emotion through Orchestration</h4>
+<span class="bg-primary text-on-primary text-[10px] font-black px-2 py-0.5 rounded ml-2">PRO</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-outline/20"></div>
+<p class="text-on-surface-variant text-xs">Hans Zimmer II</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recommended for Creators (Modern Alternating Layout) -->
+<section class="space-y-6 pb-20">
+<h3 class="font-manrope text-2xl font-bold tracking-tight">Recommended for Creators</h3>
+<div class="grid grid-cols-1 gap-8">
+<div class="flex flex-col md:flex-row bg-surface-container rounded-2xl overflow-hidden border border-outline/5 hover:border-primary/20 transition-all group">
+<div class="md:w-1/3 relative h-64 md:h-auto overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="high-end mirrorless camera on a motorized gimbal stabilizer with scenic mountain landscape background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs1-8gKxSlAZ2Z0tbpg4e1UaOx3ihIxDQdnkHNQS28fmT6-TX9F9fbEnUA8LZQv1_ckyKLhlxw12GAzQT1HzcG27Sw1WokZ5fnEUz78B6mcJN8bJpX6cLurjV7GSjnuNMhv6zaApGZsFuZehFbo4j2ZFqgL7pHAlVTEiJkS_dZt90KKhIrqAgNjC3baASedgctzGtSIHbJpc18y5bnKSbEtQ0a3KazExxUpkK6xZ8pFFZgATmjHKst9zmqmbL76nkz2Bz6UvQ4LaA"/>
+</div>
+<div class="md:w-2/3 p-8 flex flex-col justify-center space-y-4">
+<span class="text-primary text-xs font-bold tracking-widest uppercase">Specialization Course</span>
+<h4 class="text-3xl font-manrope font-bold text-on-surface">The Freelance Filmmaker's Business Toolkit</h4>
+<p class="text-on-surface-variant max-w-xl">Everything they didn't teach you in film school: client management, contracts, budgeting, and scaling your solo production house.</p>
+<div class="flex items-center gap-6 pt-4">
+<div class="flex flex-col">
+<span class="text-xs text-outline uppercase font-bold tracking-widest">Enrollment</span>
+<span class="text-on-surface font-bold">1.2k Creators</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-outline uppercase font-bold tracking-widest">Duration</span>
+<span class="text-on-surface font-bold">8.5 Hours</span>
+</div>
+<button class="ml-auto text-primary font-bold hover:translate-x-1 transition-transform flex items-center gap-2">
+                                Learn More <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-[#131313]/70 backdrop-blur-xl flex justify-around items-center px-4 py-3 w-full pb-safe border-t border-[#353534]/15">
+<a class="flex flex-col items-center justify-center bg-[#ffd05e] text-[#131313] rounded-full p-3 shadow-[0_0_15px_rgba(255,208,94,0.3)] active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">video_library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">local_activity</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</nav>
+<!-- Floating Action Button (Optional Contextual Add) -->
+<button class="fixed bottom-24 right-6 md:bottom-8 md:right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined font-bold">add</span>
+</button>
+</body></html>
+
+<!-- Referral Page -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>450audiovisual | Referral Program</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-primary": "#775a00",
+                        "secondary-fixed": "#e4e2e1",
+                        "surface-tint": "#f3bf32",
+                        "on-primary-fixed-variant": "#5a4300",
+                        "surface-container-high": "#2a2a2a",
+                        "error-container": "#93000a",
+                        "inverse-surface": "#e5e2e1",
+                        "background": "#131313",
+                        "on-tertiary-fixed-variant": "#004b71",
+                        "inverse-on-surface": "#313030",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-error": "#690005",
+                        "secondary-container": "#474746",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#1c1b1b",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-secondary": "#303030",
+                        "error": "#ffb4ab",
+                        "outline": "#9b8f7a",
+                        "on-tertiary-container": "#004f76",
+                        "primary": "#ffd05e",
+                        "tertiary-fixed-dim": "#8fcdff",
+                        "on-surface-variant": "#d2c5ad",
+                        "tertiary-fixed": "#cbe6ff",
+                        "surface-bright": "#3a3939",
+                        "on-primary-fixed": "#251a00",
+                        "on-tertiary-fixed": "#001e30",
+                        "on-surface": "#e5e2e1",
+                        "on-primary": "#3f2e00",
+                        "secondary": "#c8c6c5",
+                        "surface-container": "#201f1f",
+                        "on-tertiary": "#003450",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-secondary-container": "#b6b5b4",
+                        "surface-variant": "#353534",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed": "#ffdf99",
+                        "on-primary-container": "#5e4700",
+                        "primary-fixed-dim": "#f3bf32",
+                        "outline-variant": "#4e4634",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container-highest": "#353534",
+                        "primary-container": "#e6b325",
+                        "tertiary-container": "#70c2ff",
+                        "surface-dim": "#131313",
+                        "surface": "#131313",
+                        "tertiary": "#b2dbff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-nav {
+            background: rgba(19, 19, 19, 0.7);
+            backdrop-filter: blur(20px);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #ffd05e 0%, #e6b325 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#131313]/70 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full shadow-[0_20px_40px_rgba(229,226,225,0.05)]">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/20">
+<img alt="user profile picture" class="w-full h-full object-cover" data-alt="close-up portrait of a professional film director wearing headphones in a dark studio setting with amber backlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3ikA4KRV7hLSjzRpZc9NiaScBvNbO2eK4hQmGkQXXpVPAzIjEgJP8hayJJojb-n5gJUr1OSeXyKYvcWvH9AYQS5upuG1mX8TWhASzeFkO8zJdzGOlNPI1Ft9sV7RvvOCG_u6aV_JUoOthoQYBqhj2g2scMMQzIM37M-OOUBXlnuIR8cpxitu0xwL56VttmZVx-2f-DOl8SwdnX0TFQGTKmK32F2lzMj5H8-gmt1-QOB7OuAtXXIZYzpALZgkVIT6cOCb7tkD8NUU"/>
+</div>
+<span class="text-[#ffd05e] font-manrope font-extrabold tracking-tighter text-xl">450audiovisual</span>
+</div>
+<button class="text-[#ffd05e] active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<main class="pt-24 px-6 max-w-4xl mx-auto space-y-12">
+<!-- Hero Section -->
+<section class="text-center space-y-4">
+<h1 class="font-headline font-extrabold text-4xl md:text-6xl tracking-tight text-on-background">
+                Grow the Community,<br/><span class="text-primary">Get Rewards</span>
+</h1>
+<p class="font-body text-on-surface-variant max-w-md mx-auto text-lg">
+                Your creative journey is better with friends. Share the craft and unlock exclusive auteur benefits.
+            </p>
+</section>
+<!-- Stats & Reward Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Referral Counter -->
+<div class="md:col-span-1 bg-surface-container rounded-lg p-6 flex flex-col justify-between space-y-8 border border-outline-variant/10">
+<div class="space-y-1">
+<span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Your Impact</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline font-bold text-4xl text-primary">12</span>
+<span class="font-body text-on-surface-variant">Total Referrals</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary" data-icon="pending">pending</span>
+<span class="font-body text-sm">Status: 2 pending</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="info">info</span>
+</div>
+</div>
+<!-- Reward Section -->
+<div class="md:col-span-2 relative overflow-hidden bg-surface-container rounded-lg p-8 border border-outline-variant/10 group">
+<div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px]" data-icon="redeem" style="font-variation-settings: 'FILL' 1;">redeem</span>
+</div>
+<div class="relative z-10 space-y-6">
+<div class="inline-flex items-center gap-2 bg-tertiary-container/20 text-tertiary px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label text-xs font-bold uppercase tracking-wider">Active Milestone</span>
+</div>
+<h2 class="font-headline font-bold text-2xl md:text-3xl">Refer 3 friends to unlock a <span class="text-primary">Pro Course</span></h2>
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-2/3 shadow-[0_0_15px_rgba(255,208,94,0.4)]"></div>
+</div>
+<p class="font-body text-sm text-on-surface-variant">1 more referral needed to unlock "Cinematic Lighting Masterclass"</p>
+</div>
+</div>
+</div>
+<!-- Referral Link Card -->
+<section class="bg-surface-container-low rounded-lg p-8 space-y-6 border border-outline-variant/5">
+<div class="space-y-2">
+<h3 class="font-headline font-bold text-xl">Your Private Invite Link</h3>
+<p class="font-body text-sm text-on-surface-variant">Each friend who joins using this link earns you 5 tickets.</p>
+</div>
+<div class="flex flex-col md:flex-row gap-4">
+<div class="flex-1 bg-surface-container-lowest border border-outline-variant/20 rounded-md px-4 py-4 font-mono text-sm text-on-surface flex items-center overflow-x-auto whitespace-nowrap">
+                    450audiovisual.com/join/auteur-student-982
+                </div>
+<button class="primary-gradient text-on-primary font-headline font-bold px-8 py-4 rounded-md flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-lg" data-icon="content_copy">content_copy</span>
+                    Copy Link
+                </button>
+</div>
+<!-- Share Options -->
+<div class="pt-4 border-t border-outline-variant/10 flex flex-col md:flex-row items-center justify-between gap-6">
+<span class="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">Quick Share</span>
+<div class="flex gap-4">
+<button class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-[#E1306C] hover:text-white transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="photo_camera">photo_camera</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+</div>
+</section>
+<!-- How it works -->
+<section class="space-y-10 pb-16">
+<div class="text-center">
+<h3 class="font-headline font-bold text-2xl">The Director's Circle</h3>
+<div class="h-1 w-12 bg-primary mx-auto mt-2 rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="flex flex-col items-center text-center space-y-4">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-highest flex items-center justify-center text-primary border border-outline-variant/10">
+<span class="material-symbols-outlined text-3xl" data-icon="share">share</span>
+</div>
+<div class="space-y-1">
+<span class="font-headline font-bold">1. Share link</span>
+<p class="font-body text-xs text-on-surface-variant px-4">Send your unique invite to fellow creators and students.</p>
+</div>
+</div>
+<div class="flex flex-col items-center text-center space-y-4">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-highest flex items-center justify-center text-primary border border-outline-variant/10">
+<span class="material-symbols-outlined text-3xl" data-icon="person_add">person_add</span>
+</div>
+<div class="space-y-1">
+<span class="font-headline font-bold">2. Friend joins</span>
+<p class="font-body text-xs text-on-surface-variant px-4">They sign up and start their first project with us.</p>
+</div>
+</div>
+<div class="flex flex-col items-center text-center space-y-4">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-highest flex items-center justify-center text-primary border border-outline-variant/10">
+<span class="material-symbols-outlined text-3xl" data-icon="redeem" style="font-variation-settings: 'FILL' 1;">redeem</span>
+</div>
+<div class="space-y-1">
+<span class="font-headline font-bold">3. Get reward</span>
+<p class="font-body text-xs text-on-surface-variant px-4">Unlock courses, tickets, and pro-level editing tools.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- NavigationDrawer (Simulated sidebar for desktop) -->
+<aside class="hidden xl:flex fixed inset-y-0 left-0 z-[60] flex flex-col p-6 h-full w-[280px] bg-[#131313] shadow-[40px_0_40px_rgba(0,0,0,0.5)] transition-all duration-300 ease-in-out border-r border-outline-variant/10">
+<div class="flex flex-col space-y-1 mb-8 pt-4">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary">
+<img alt="user avatar" class="w-full h-full object-cover" data-alt="professional headshot of a student filmmaker in a moody studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBD_h09vPW8l42UKQ5Xj9OPpDVTIX6OMqUc_-mV9v-S7r-JbSiHrzvqnHs3W3jBxkASYhObIQd8GGDQVrWfNnfYz6IjCsUNSZIu2usqCLuZcwZJUMIyI0-ZNGcdRuMjKp6uLtaXervuAsO629cwhxTJ1rEQdhsmXFKUeXQY38HEE4FMdSQedyRA0w1Rpg2yRka5fGU-slwr2Oub_taTOoOX-7GgsAlt1Q9hhIsmV0zac6tgSy0wBkeiQcItdkkW2LxOiXq6hwdHtZY"/>
+</div>
+<div>
+<h4 class="font-manrope font-bold text-base text-on-surface">Auteur Student</h4>
+<p class="font-manrope text-xs text-primary font-medium">Pro Member</p>
+</div>
+</div>
+<nav class="space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 text-[#ffd05e] bg-[#201f1f] rounded-lg font-manrope font-medium text-base" href="#">
+<span class="material-symbols-outlined" data-icon="group_add">group_add</span>
+                    Referral Program
+                </a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#e5e2e1] opacity-80 hover:bg-[#201f1f] hover:text-white rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+                    Billing
+                </a>
+</nav>
+</div>
+<div class="mt-auto">
+<p class="font-manrope text-xs text-on-surface-variant opacity-50">v1.0.4</p>
+</div>
+</aside>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-3 w-full pb-safe bg-[#131313]/70 backdrop-blur-xl border-t border-[#353534]/15">
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="video_library">video_library</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#ffd05e] text-[#131313] rounded-full p-3 shadow-[0_0_15px_rgba(255,208,94,0.3)] active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="local_activity">local_activity</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Profile</span>
+</a>
+</nav>
+</body></html>
+
+<!-- Profile & Subscription -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "inverse-primary": "#775a00",
+            "secondary-fixed": "#e4e2e1",
+            "surface-tint": "#f3bf32",
+            "on-primary-fixed-variant": "#5a4300",
+            "surface-container-high": "#2a2a2a",
+            "error-container": "#93000a",
+            "inverse-surface": "#e5e2e1",
+            "background": "#131313",
+            "on-tertiary-fixed-variant": "#004b71",
+            "inverse-on-surface": "#313030",
+            "on-secondary-fixed-variant": "#474746",
+            "on-error": "#690005",
+            "secondary-container": "#474746",
+            "on-error-container": "#ffdad6",
+            "surface-container-low": "#1c1b1b",
+            "on-secondary-fixed": "#1b1c1c",
+            "on-secondary": "#303030",
+            "error": "#ffb4ab",
+            "outline": "#9b8f7a",
+            "on-tertiary-container": "#004f76",
+            "primary": "#ffd05e",
+            "tertiary-fixed-dim": "#8fcdff",
+            "on-surface-variant": "#d2c5ad",
+            "tertiary-fixed": "#cbe6ff",
+            "surface-bright": "#3a3939",
+            "on-primary-fixed": "#251a00",
+            "on-tertiary-fixed": "#001e30",
+            "on-surface": "#e5e2e1",
+            "on-primary": "#3f2e00",
+            "secondary": "#c8c6c5",
+            "surface-container": "#201f1f",
+            "on-tertiary": "#003450",
+            "secondary-fixed-dim": "#c8c6c5",
+            "on-secondary-container": "#b6b5b4",
+            "surface-variant": "#353534",
+            "on-background": "#e5e2e1",
+            "primary-fixed": "#ffdf99",
+            "on-primary-container": "#5e4700",
+            "primary-fixed-dim": "#f3bf32",
+            "outline-variant": "#4e4634",
+            "surface-container-lowest": "#0e0e0e",
+            "surface-container-highest": "#353534",
+            "primary-container": "#e6b325",
+            "tertiary-container": "#70c2ff",
+            "surface-dim": "#131313",
+            "surface": "#131313",
+            "tertiary": "#b2dbff"
+          },
+          fontFamily: {
+            "headline": ["Manrope"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+      background-color: #131313;
+      color: #e5e2e1;
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#131313]/70 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full shadow-[0_20px_40px_rgba(229,226,225,0.05)]">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full overflow-hidden border border-outline/20">
+<img alt="user profile picture" class="h-full w-full object-cover" data-alt="close-up portrait of a professional male filmmaker with thoughtful expression in a dark studio setting with warm rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPVeE3d4Dy5M5C95KvQ-ph7rHv_6i4kjJ_nvXii-ZF_q9w6VG9HZ1l2vgpoVxfEckQDb6U1k9P7WYWivoD108Lam3EUOMeGwUKDB6udBRlDdsp0i99_N2LuxOzc4OBdt-f2pw-t_C8o1uym8m9x-BbFaoo7Xkn8BOGQt_pSTD33vKKurxnYA3Jkol-f0wxYRR_8qWTfKq1CMUQ_2yiymA9wxpXhH_moRbs8wfK3_5qTJMe-hG7WkFlNmnUqZOGWhP2lB5QNhYvvmE"/>
+</div>
+<h1 class="text-[#ffd05e] font-manrope font-extrabold tracking-tighter text-xl uppercase">450audiovisual</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-[#ffd05e] p-2 hover:bg-[#353534] transition-colors active:scale-95 transition-transform">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto space-y-10">
+<!-- Profile Header Section -->
+<section class="flex flex-col items-center text-center space-y-4">
+<div class="relative">
+<div class="w-32 h-32 rounded-full p-1 bg-gradient-to-tr from-primary to-primary-container shadow-[0_0_30px_rgba(255,208,94,0.15)]">
+<img alt="Auteur Student" class="w-full h-full object-cover rounded-full" data-alt="close-up portrait of a professional male filmmaker with thoughtful expression in a dark studio setting with warm rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFW0xbVan10XubEmZxYHfBoq5kHOAU7Jkq6fzC_nGvOCM7XlnBJ0UVcWmUzw6k2LAsiMTC6flu9RsIeJJJjoIvItIHQPAgxTYjuAz4bxhCWi-q5zvpnmx0On29bi11npQ6I2EUY4StEqqrtDHekAYCZj9CWNB83mnyUpIdFz33qransFjg3tzJB_Xfp0hrOspb0VuM3ygmAP0bMZj7rZ1u-fq63wuGl88bnmKbcnIye-t7pRaTtg1rL34xpXufTjA3Rog-afc4HrY"/>
+</div>
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-primary text-on-primary text-[10px] font-bold px-3 py-1 rounded-full tracking-widest uppercase">
+          PRO MEMBER
+        </div>
+</div>
+<div class="space-y-1">
+<h2 class="font-headline font-bold text-3xl tracking-tight text-on-surface">Auteur Student</h2>
+<p class="text-on-surface-variant text-sm font-body">premium-member-992@450av.com</p>
+</div>
+</section>
+<!-- Subscription Status Card -->
+<section class="bg-surface-container-low rounded-lg p-6 space-y-6">
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<h3 class="font-headline text-lg font-bold text-primary">Your Plan: Pro Annual</h3>
+<p class="text-on-surface-variant text-sm font-body">Active since January 2024</p>
+</div>
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<div class="flex items-center gap-3 p-4 bg-surface-container rounded-lg">
+<span class="material-symbols-outlined text-on-surface-variant">event</span>
+<div class="text-sm">
+<span class="text-on-surface-variant">Next billing on</span>
+<span class="text-on-surface font-semibold">Dec 20, 2026</span>
+</div>
+</div>
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary font-headline font-bold py-3 rounded-md active:scale-[0.98] transition-all">
+        Manage Subscription
+      </button>
+</section>
+<!-- Payment Method -->
+<section class="space-y-4">
+<h3 class="font-headline text-sm font-bold tracking-widest uppercase text-on-surface-variant px-1">Payment Method</h3>
+<div class="bg-surface-container-low rounded-lg p-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-8 bg-surface-container-highest rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface">credit_card</span>
+</div>
+<div>
+<p class="text-on-surface font-medium font-body">Visa ending in 4242</p>
+<p class="text-on-surface-variant text-xs font-body">Expires 12/28</p>
+</div>
+</div>
+<button class="text-primary text-sm font-bold font-headline px-4 py-2 hover:bg-surface-container transition-colors rounded-full">
+          Change Card
+        </button>
+</div>
+</section>
+<!-- Account Settings -->
+<section class="space-y-4">
+<h3 class="font-headline text-sm font-bold tracking-widest uppercase text-on-surface-variant px-1">Account Settings</h3>
+<div class="bg-surface-container-low rounded-lg overflow-hidden">
+<button class="w-full flex items-center justify-between p-5 hover:bg-surface-container transition-colors group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">mail</span>
+<div class="text-left">
+<p class="text-on-surface font-medium">Email</p>
+<p class="text-on-surface-variant text-xs">premium-member-992@450av.com</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+<div class="h-px bg-outline-variant/10 mx-5"></div>
+<button class="w-full flex items-center justify-between p-5 hover:bg-surface-container transition-colors group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">lock</span>
+<div class="text-left">
+<p class="text-on-surface font-medium">Password</p>
+<p class="text-on-surface-variant text-xs">Updated 3 months ago</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+<div class="h-px bg-outline-variant/10 mx-5"></div>
+<button class="w-full flex items-center justify-between p-5 hover:bg-surface-container transition-colors group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">notifications</span>
+<div class="text-left">
+<p class="text-on-surface font-medium">Notifications</p>
+<p class="text-on-surface-variant text-xs">Push, Email, SMS</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Billing Management Section -->
+<section class="space-y-4">
+<div class="flex justify-between items-center px-1">
+<h3 class="font-headline text-sm font-bold tracking-widest uppercase text-on-surface-variant">Billing History</h3>
+<button class="text-tertiary text-xs font-bold font-headline uppercase tracking-tight">View All</button>
+</div>
+<div class="space-y-2">
+<!-- Invoice Item 1 -->
+<div class="bg-surface-container-lowest/50 border border-outline-variant/10 rounded-lg p-4 flex items-center justify-between">
+<div>
+<p class="text-on-surface font-medium font-body text-sm">Dec 2025 Subscription</p>
+<p class="text-on-surface-variant text-xs font-body">Dec 20, 2025 • $299.00</p>
+</div>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+<span class="text-xs font-bold uppercase tracking-tighter">PDF</span>
+</button>
+</div>
+<!-- Invoice Item 2 -->
+<div class="bg-surface-container-lowest/50 border border-outline-variant/10 rounded-lg p-4 flex items-center justify-between">
+<div>
+<p class="text-on-surface font-medium font-body text-sm">Dec 2024 Subscription</p>
+<p class="text-on-surface-variant text-xs font-body">Dec 20, 2024 • $299.00</p>
+</div>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+<span class="text-xs font-bold uppercase tracking-tighter">PDF</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Logout -->
+<section class="pt-8 pb-12">
+<button class="w-full flex items-center justify-center gap-2 text-error font-headline font-bold py-4 hover:bg-error/5 transition-colors rounded-lg">
+<span class="material-symbols-outlined">logout</span>
+        Log Out
+      </button>
+<p class="text-center text-[10px] text-on-surface-variant uppercase tracking-[0.2em] mt-4 opacity-40">450audiovisual v1.0.4</p>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-[#131313]/70 backdrop-blur-xl border-t border-[#353534]/15 flex justify-around items-center px-4 py-3 w-full pb-safe">
+<button class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all">
+<span class="material-symbols-outlined">home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all">
+<span class="material-symbols-outlined">video_library</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#e5e2e1] opacity-60 p-3 hover:opacity-100 transition-opacity active:scale-90 transition-all">
+<span class="material-symbols-outlined">local_activity</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-[#ffd05e] text-[#131313] rounded-full p-3 shadow-[0_0_15px_rgba(255,208,94,0.3)] active:scale-90 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+</button>
+</nav>
+</body></html>
