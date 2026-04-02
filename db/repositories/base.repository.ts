@@ -7,3 +7,4 @@ export abstract class BaseRepository {
         this.db = db;
     }
 }
+
