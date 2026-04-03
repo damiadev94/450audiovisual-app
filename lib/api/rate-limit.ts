@@ -13,3 +13,16 @@ export const subscriptionRateLimit = new Ratelimit({
     analytics: true
 })
 
+export const authRateLimit = new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(5, '15 m'),  // 5 intentos / 15 min
+    prefix: 'rate_limit:auth',
+    analytics: true,
+})
+
+export const publicApiRateLimit = new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(60, '1 m'),
+    prefix: 'rate_limit:public',
+    analytics: true,
+})

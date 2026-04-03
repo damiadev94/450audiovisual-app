@@ -1,11 +1,13 @@
 import { handleApiError } from "./handleApiError"
 
-export function withErrorHandler(
-    handler: (req: Request) => Promise<Response>
-) {
-    return async function (req: Request) {
+type RouteContext = { params: Record<string, string> }
+
+type RouteHandler = (req: Request, context?: RouteContext) => Promise<Response>
+
+export function withErrorHandler(handler: RouteHandler): RouteHandler {
+    return async function (req, context) {
         try {
-            return await handler(req)
+            return await handler(req, context)
         } catch (error) {
             return handleApiError(error)
         }
