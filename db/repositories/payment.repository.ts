@@ -1,4 +1,5 @@
 import { BaseRepository } from "./base.repository"
+import { SupabaseClient } from "@supabase/supabase-js"
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
 
@@ -43,16 +44,16 @@ export interface UpdatePaymentInput {
     updated_at?: string
 }
 
-const PAYMENT_COLUMNS = `
-  id, user_id, subscription_id,
-  mp_payment_id, mp_status,
-  amount, currency, payment_type,
-  description, created_at, updated_at
-`.trim()
+const PAYMENT_COLUMNS = "id, user_id, subscription_id, mp_payment_id, mp_status, amount, currency, payment_type, description, created_at, updated_at"
 
 // ─── Repository ───────────────────────────────────────────────────────────────
 
 export class PaymentRepository extends BaseRepository {
+
+    // 1. Agregas el constructor
+    constructor(db: SupabaseClient) { // Cambia 'any' por el tipo real de tu cliente, ej: SupabaseClient
+        super(db);
+    }
 
     async findById(id: string): Promise<Payment> {
         const { data, error } = await this.db
