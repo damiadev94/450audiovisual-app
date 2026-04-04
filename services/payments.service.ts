@@ -1,6 +1,6 @@
 import { SupabaseClient } from '@supabase/supabase-js'
 import { Database, Json } from '@/types/supabase'
-import { extendMembership } from './memberships.service'
+import { MembershipsService } from './memberships.service'
 import { logger } from '@/lib/utils/logger'
 import client from '@/lib/mercadopago/client'
 import { Preference, PreApproval } from 'mercadopago'
@@ -71,7 +71,8 @@ export async function processApprovedPayment(
   })
 
   // 2. Extender membresía
-  await extendMembership(supabase, data.userId)
+  const membershipsService = new MembershipsService(supabase)
+  await membershipsService.extendMembership(data.userId)
 
   // 3. Generar Ticket de Sorteo
   // Buscamos el sorteo activo más reciente

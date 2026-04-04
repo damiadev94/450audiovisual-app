@@ -66,36 +66,39 @@ export interface Database {
         Row: {
           id: string
           user_id: string
-          external_id: string | null
+          subscription_id: string | null
+          mp_payment_id: string
+          mp_status: 'approved' | 'rejected' | 'pending' | 'cancelled' | 'refunded' | 'in_process'
           amount: number
           currency: string
-          status: string
-          payment_method: string | null
-          raw_response: Json | null
+          payment_type: 'subscription' | 'one_time'
+          description: string | null
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
           user_id: string
-          external_id?: string | null
+          subscription_id?: string | null
+          mp_payment_id: string
+          mp_status: 'approved' | 'rejected' | 'pending' | 'cancelled' | 'refunded' | 'in_process'
           amount: number
           currency?: string
-          status?: string
-          payment_method?: string | null
-          raw_response?: Json | null
+          payment_type: 'subscription' | 'one_time'
+          description?: string | null
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
           user_id?: string
-          external_id?: string | null
+          subscription_id?: string | null
+          mp_payment_id?: string
+          mp_status?: 'approved' | 'rejected' | 'pending' | 'cancelled' | 'refunded' | 'in_process'
           amount?: number
           currency?: string
-          status?: string
-          payment_method?: string | null
-          raw_response?: Json | null
+          payment_type?: 'subscription' | 'one_time'
+          description?: string | null
           created_at?: string
           updated_at?: string
         },
