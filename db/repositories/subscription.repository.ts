@@ -1,53 +1,43 @@
 import { BaseRepository } from "./base.repository";
+import { Subscription, CreateSubscriptionDto, UpdateSubscriptionDto } from "../../types/subscription";
 
-export class SubscriptionRepository extends BaseRepository {
-    async findByUserId(userId: string) {
+export class SubscriptionRepository extends BaseRepository<Subscription> {
+    private readonly TABLE_NAME = "subscriptions";
+
+    async findByUserId(userId: string): Promise<Subscription | null> {
         const { data, error } = await this.db
-            .from("subscriptions")
+            .from(this.TABLE_NAME)
             .select("*")
             .eq("user_id", userId)
-            .single()
+            .maybeSingle(); // .single() lanza error si no existe, .maybeSingle() es más seguro
 
-        if (error) throw error
-
-        return data
+        if (error) this.handleError(error);
+        return data;
     }
 
-    async create(data: any) {
+    async create(payload: CreateSubscriptionDto): Promise<void> {
         const { error } = await this.db
-            .from("subscriptions")
-            .insert(data)
+            .from(this.TABLE_NAME)
+            .insert(payload);
 
-        if (error) throw error
+        if (error) this.handleError(error);
     }
 
-    async update(id: string, data: any) {
+    async update(id: string, payload: UpdateSubscriptionDto): Promise<void> {
         const { error } = await this.db
-            .from("subscriptions")
-            .update(data)
-            .eq("id", id)
+            .from(this.TABLE_NAME)
+            .update(payload)
+            .eq("id", id);
 
-        if (error) throw error
+        if (error) this.handleError(error);
     }
 
-    async delete(id: string) {
+    async delete(id: string): Promise<void> {
         const { error } = await this.db
-            .from("subscriptions")
+            .from(this.TABLE_NAME)
             .delete()
-            .eq("id", id)
+            .eq("id", id);
 
-        if (error) throw error
-    }
-
-    async findByRaffleId(raffleId: string) {
-        const { data, error } = await this.db
-            .from("subscriptions")
-            .select("*")
-            .eq("raffle_id", raffleId)
-            .single()
-
-        if (error) throw error
-
-        return data
+        if (error) this.handleError(error);
     }
 }

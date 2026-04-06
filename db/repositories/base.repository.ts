@@ -1,7 +1,7 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { ApiError, NotFoundError } from "@/lib/api/ApiError";
 
-export abstract class BaseRepository {
+export abstract class BaseRepository<T> {
     protected db: SupabaseClient;
 
     constructor(db: SupabaseClient) {
