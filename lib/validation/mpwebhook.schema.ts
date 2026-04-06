@@ -2,9 +2,7 @@ import { z } from "zod";
 
 export const MPWebhookSchema = z.object({
     action: z.string(),
-    data: z.object({
-        id: z.string(),
-    }),
+    data: z.union([z.string(), z.number()]).transform(String),
     type: z.string(),
 });
 
