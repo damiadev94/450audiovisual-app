@@ -1,6 +1,6 @@
 import { handleApiError } from "./handleApiError"
 
-type RouteContext = { params: Record<string, string> }
+type RouteContext = { params: Promise<Record<string, string>> }
 
 type RouteHandler = (req: Request, context?: RouteContext) => Promise<Response>
 
