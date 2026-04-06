@@ -124,6 +124,7 @@ async function handlePaymentEvent(
     status: 'approved',
     paymentMethod: payment.payment_method_id ?? undefined,
     rawResponse: payment as unknown as Record<string, unknown>,
+    paymentId: payment.id?.toString() || paymentId.toString(),
   })
 
   logger.info('webhook.payment_processed', {

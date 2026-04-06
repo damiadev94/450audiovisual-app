@@ -1,4 +1,3 @@
-// TODO: Implementar servicio de usuarios
 import { ProfileRepository } from "../db/repositories/profile.repository";
 import { SubscriptionRepository } from "../db/repositories/subscription.repository";
 import { PaymentRepository } from "../db/repositories/payment.repository";
