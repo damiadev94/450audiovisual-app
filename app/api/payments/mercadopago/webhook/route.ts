@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ received: true });
     }
 
-    const body = await request.json()
+    const body = parsed.data;
     const { action, data, type } = body
 
     // * 1. Verificar firma del webhook
