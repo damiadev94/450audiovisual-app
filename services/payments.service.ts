@@ -20,7 +20,10 @@ interface PaymentData {
   status: string
   paymentMethod?: string
   rawResponse?: Record<string, unknown>
+  paymentId: string
 }
+
+type PaymentInsert = Database['public']['Tables']['payments']['Insert'];
 
 /**
  * Procesa un pago aprobado:
@@ -39,10 +42,12 @@ export async function processApprovedPayment(
       user_id: data.userId,
       external_id: data.externalId,
       amount: data.amount,
-      status: data.status,
+      mp_status: data.status,
       payment_method: data.paymentMethod,
       raw_response: (data.rawResponse as Json) ?? null,
-    })
+      mp_payment_id: data.paymentId, // Asegúrate de que 'data' tenga este valor
+      payment_type: 'subscription',
+    } as PaymentInsert)
     .select()
     .single()
 

@@ -67,40 +67,49 @@ export interface Database {
           id: string
           user_id: string
           subscription_id: string | null
+          external_id: string | null
           mp_payment_id: string
           mp_status: 'approved' | 'rejected' | 'pending' | 'cancelled' | 'refunded' | 'in_process'
           amount: number
           currency: string
           payment_type: 'subscription' | 'one_time'
+          payment_method: string
           description: string | null
           created_at: string
           updated_at: string
+          raw_response: Json | null
         }
         Insert: {
           id?: string
           user_id: string
           subscription_id?: string | null
+          external_id?: string | null
           mp_payment_id: string
           mp_status: 'approved' | 'rejected' | 'pending' | 'cancelled' | 'refunded' | 'in_process'
           amount: number
           currency?: string
           payment_type: 'subscription' | 'one_time'
+          payment_method: string
           description?: string | null
           created_at?: string
           updated_at?: string
+          raw_response?: Json | null
         }
         Update: {
           id?: string
           user_id?: string
           subscription_id?: string | null
+          external_id?: string | null
           mp_payment_id?: string
           mp_status?: 'approved' | 'rejected' | 'pending' | 'cancelled' | 'refunded' | 'in_process'
           amount?: number
           currency?: string
           payment_type?: 'subscription' | 'one_time'
+          payment_method?: string
           description?: string | null
           created_at?: string
           updated_at?: string
+          raw_response?: Json | null
         },
         Relationships: []
       }
