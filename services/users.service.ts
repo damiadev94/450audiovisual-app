@@ -26,4 +26,8 @@ export class UsersService {
     async getUserPayment(userId: string) {
         return this.paymentRepository.findByUserId(userId);
     }
+
+    async cancelSubscription(userId: string) {
+        return this.subscriptionRepository.delete(userId);
+    }
 }
