@@ -48,7 +48,7 @@ const PAYMENT_COLUMNS = "id, user_id, subscription_id, mp_payment_id, mp_status,
 
 // ─── Repository ───────────────────────────────────────────────────────────────
 
-export class PaymentRepository extends BaseRepository {
+export class PaymentRepository extends BaseRepository<Payment> {
 
     // 1. Agregas el constructor
     constructor(db: SupabaseClient) { // Cambia 'any' por el tipo real de tu cliente, ej: SupabaseClient

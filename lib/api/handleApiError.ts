@@ -1,4 +1,4 @@
-import { ApiError, ValidationError } from "./ApiError"
+import { ApiError } from "./ApiError"
 import { logger } from "../utils/logger"
 
 // Mapeo de códigos Postgres → respuestas HTTP

@@ -33,7 +33,7 @@ const RAFFLE_COLUMNS = "id, title, description, prize, is_active, draw_date, win
 
 // ─── Repository ───────────────────────────────────────────────────────────────
 
-export class RaffleRepository extends BaseRepository {
+export class RaffleRepository extends BaseRepository<Raffle> {
 
     // Devuelve array — puede haber más de un sorteo activo
     async findActive(): Promise<Raffle[]> {

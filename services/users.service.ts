@@ -3,19 +3,13 @@ import { SubscriptionRepository } from "../db/repositories/subscription.reposito
 import { PaymentRepository } from "../db/repositories/payment.repository";
 
 export class UsersService {
-    private profileRepository: ProfileRepository;
-    private subscriptionRepository: SubscriptionRepository;
-    private paymentRepository: PaymentRepository;
-
+    // Usando "Parameter Properties" de TS: 
+    // defines e inicializas en una sola línea.
     constructor(
-        profileRepository: ProfileRepository,
-        subscriptionRepository: SubscriptionRepository,
-        paymentRepository: PaymentRepository
-    ) {
-        this.profileRepository = profileRepository;
-        this.subscriptionRepository = subscriptionRepository;
-        this.paymentRepository = paymentRepository;
-    }
+        private readonly profileRepository: ProfileRepository,
+        private readonly subscriptionRepository: SubscriptionRepository,
+        private readonly paymentRepository: PaymentRepository
+    ) { }
 
     async getUserById(userId: string) {
         return this.profileRepository.findById(userId);

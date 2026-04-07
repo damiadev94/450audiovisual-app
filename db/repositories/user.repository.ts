@@ -1,4 +1,3 @@
-import { SupabaseClient } from "@supabase/supabase-js"
 import { BaseRepository } from "./base.repository"
 import { ConflictError } from "@/lib/api/ApiError"
 
@@ -16,7 +15,7 @@ export interface CreateUserInput {
     full_name?: string
 }
 
-export class UserRepository extends BaseRepository {
+export class UserRepository extends BaseRepository<User> {
     async findById(id: string): Promise<User> {
         const { data, error } = await this.db
             .from("users")

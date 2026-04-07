@@ -10,7 +10,7 @@ export interface Profile {
     created_at: string
 }
 
-export class ProfileRepository extends BaseRepository {
+export class ProfileRepository extends BaseRepository<Profile> {
     async findById(userId: string): Promise<Profile> {
         const { data, error } = await this.db
             .from("profiles")

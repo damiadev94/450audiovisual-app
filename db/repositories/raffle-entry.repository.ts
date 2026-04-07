@@ -10,7 +10,7 @@ export interface RaffleEntry {
 
 const ENTRY_COLUMNS = "id, raffle_id, user_id, entered_at"
 
-export class RaffleEntryRepository extends BaseRepository {
+export class RaffleEntryRepository extends BaseRepository<RaffleEntry> {
 
     async findByRaffleId(raffleId: string): Promise<RaffleEntry[]> {
         const { data, error } = await this.db
