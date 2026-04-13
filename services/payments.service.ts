@@ -126,14 +126,15 @@ export async function createPaymentPreference(items: {
   unit_price: number
   currency_id?: string
 }[]) {
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://iwonaudiovisual.com'
   const preference = new Preference(client)
   const response = await preference.create({
     body: {
       items,
       back_urls: {
-        success: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/success`,
-        failure: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/failure`,
-        pending: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/pending`,
+        success: `${baseUrl}/checkout/success`,
+        failure: `${baseUrl}/checkout/failure`,
+        pending: `${baseUrl}/checkout/pending`,
       },
     },
   })
@@ -143,6 +144,7 @@ export async function createPaymentPreference(items: {
 
 // 5. Suscripción Mensual (Preapproval)
 export async function createSubscription(userId: string, userEmail: string) {
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
   const preApproval = new PreApproval(client)
   const response = await preApproval.create({
     body: {
@@ -153,7 +155,7 @@ export async function createSubscription(userId: string, userEmail: string) {
         transaction_amount: 9999,
         currency_id: 'ARS',
       },
-      back_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/success`,
+      back_url: `${baseUrl}/checkout/success`,
       payer_email: userEmail,
       external_reference: userId,
       status: 'pending',
