@@ -38,8 +38,16 @@ export const POST = withErrorHandler(async (request: Request) => {
     return NextResponse.json({ error: 'Usuario sin email' }, { status: 400 });
   }
 
-  // Crear la suscripción mensual en MercadoPago
-  const initPoint = await createSubscription(user.id, email);
+  let initPoint;
+  try {
+    initPoint = await createSubscription(user.id, email);
+  } catch (error: any) {
+    console.error("MERCADOPAGO ERROR:", error);
+    return NextResponse.json({ 
+      error: 'Error de MercadoPago', 
+      details: error?.message || error?.cause || error?.response || String(error)
+    }, { status: 500 });
+  }
 
   if (!initPoint) {
     throw new Error('No se pudo generar el init_point de MercadoPago');

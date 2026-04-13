@@ -19,16 +19,17 @@ export default function PricingPage() {
           router.push('/auth/login');
           return;
         }
-        throw new Error('Error al crear suscripción');
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.details ? JSON.stringify(errorData.details) : errorData.error || 'Error al crear suscripción');
       }
 
       const { url } = await res.json();
       if (url) {
         window.location.href = url;
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      alert('Hubo un problema al procesar el pago. Intenta de nuevo.');
+      alert(`Hubo un problema al procesar el pago. Detalle: ${error.message}`);
     } finally {
       setLoading(false);
     }
